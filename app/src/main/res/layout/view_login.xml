@@ -66,7 +66,7 @@
             android:fontFamily="@font/barlowsemicondensed_regular"
             android:minHeight="20dp"
             android:text="@string/Login.forgotPassword"
-            android:textColor="@color/litecoin_litewallet_blue"
+            android:textColor="@color/garlicoin_garlicwallet_yellow"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/passwordField" />
@@ -91,7 +91,7 @@
             android:layout_marginBottom="32dp"
             android:background="@drawable/rounded_16_lite_blue_stroke"
             android:text="@string/Login.register"
-            android:textColor="@color/litecoin_litewallet_blue"
+            android:textColor="@color/garlicoin_garlicwallet_yellow"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -22,19 +22,19 @@ public final class AnalyticsManager {
     }
 
     public static void init(Context context) {
-        instance = FirebaseAnalytics.getInstance(context);
+        //instance = FirebaseAnalytics.getInstance(context); TODO
     }
 
     public static void logCustomEvent(@BRConstants.Event String customEvent) {
-        instance.logEvent(customEvent, null);
+        //instance.logEvent(customEvent, null); TODO
     }
 
     public static void logCustomEventWithParams(@BRConstants.Event String customEvent, Bundle params) {
-        instance.logEvent(customEvent, params);
+        //instance.logEvent(customEvent, params); TODO
     }
 
     public static void logEvent(String eventString) {
-        instance.logEvent(eventString, null);
+        //instance.logEvent(eventString, null); TODO
     }
 }
 

@@ -41,7 +41,7 @@
         android:allowBackup="false"
         android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
-        android:label="Litewallet"
+        android:label="Garlicwallet"
         android:largeHeap="true"
         android:launchMode="singleTask"
         android:supportsRtl="true"
@@ -51,7 +51,7 @@
 
         <activity
             android:name=".presenter.activities.intro.IntroActivity"
-            android:label="Litewallet"
+            android:label="Garlicwallet"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter android:autoVerify="true">

@@ -198,7 +198,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/bread_margin"
-            android:background="@color/litecoin_litewallet_blue"
+            android:background="@color/garlicoin_garlicwallet_yellow"
             android:text="@string/Donate.word"
             android:textColor="@color/white"
             app:buttonType="1"

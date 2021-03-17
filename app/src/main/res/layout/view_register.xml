@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/barlowsemicondensed_semibold"
             android:text="@string/Register.registerCardPhrase"
-            android:textColor="@color/litecoin_litewallet_blue"
+            android:textColor="@color/garlicoin_garlicwallet_yellow"
             android:textSize="22sp"
             app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toEndOf="parent"

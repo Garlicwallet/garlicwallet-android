@@ -23,7 +23,7 @@
             android:background="?attr/selectableItemBackground"
             android:fontFamily="@font/barlowsemicondensed_bold"
             android:text="@string/LitecoinCard.logout"
-            android:textColor="@color/litecoin_litewallet_blue" />
+            android:textColor="@color/garlicoin_garlicwallet_yellow" />
 
         <ImageView
             android:id="@+id/cardImage"
@@ -39,7 +39,7 @@
             android:layout_marginTop="28dp"
             android:fontFamily="@font/barlowsemicondensed_bold"
             android:text="@string/LitecoinCard.cardBalance"
-            android:textColor="@color/litecoin_litewallet_blue"
+            android:textColor="@color/garlicoin_garlicwallet_yellow"
             android:textSize="26sp" />
 
         <View

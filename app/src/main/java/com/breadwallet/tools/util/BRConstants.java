@@ -101,8 +101,8 @@ public class BRConstants {
     public static final int CURRENT_UNIT_LITES = 1; // formerly CURRENT_UNIT_MBITS
     public static final int CURRENT_UNIT_LITECOINS = 2;
 
-    public static final String bitcoinLowercase = "\u0142";
-    public static final String bitcoinUppercase = "\u0141";
+    public static final String bitcoinLowercase = "\u01E5";
+    public static final String bitcoinUppercase = "\u20B2";
 
     public static boolean PLATFORM_ON = true;
     public static final RoundingMode ROUNDING_MODE = RoundingMode.HALF_EVEN;
@@ -126,7 +126,7 @@ public class BRConstants {
     public static final String loopBug = "android-loop-bug";
 
     public static final String TWITTER_LINK = "https://twitter.com/Litewallet_App";
-    public static final String REDDIT_LINK = "https://www.reddit.com/r/Litewallet";
+    public static final String REDDIT_LINK = "https://www.reddit.com/r/garlicoin";
     public static final String WEB_LINK = "https://lite-wallet.org";
     public static final String TOS_LINK = "https://lite-wallet.org/policy";
 

@@ -314,7 +314,7 @@ class FragmentSend : Fragment() {
                     onPreExecute = {
                         udLookupButton.showProgress {
                             buttonText = null
-                            progressColorRes = R.color.litecoin_litewallet_blue
+                            progressColorRes = R.color.garlicoin_garlicwallet_yellow
                         }
                         udLookupButton.isEnabled = false
                         addressEdit.text = null

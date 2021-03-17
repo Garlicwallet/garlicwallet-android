@@ -35,7 +35,7 @@
                 android:id="@+id/bread_bar"
                 android:layout_width="match_parent"
                 android:layout_height="85dp"
-                android:background="@color/litecoin_litewallet_blue"
+                android:background="@color/garlicoin_garlicwallet_yellow"
                 android:clipChildren="false"
                 android:clipToPadding="false"
                 app:contentInsetEnd="0dp"
@@ -58,7 +58,7 @@
                         android:fontFamily="@font/barlowsemicondensed_medium"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="30sp"
                         tools:ignore="MissingConstraints"
                         tools:text="$1000.00" />
@@ -69,7 +69,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/barlowsemicondensed_medium"
                         android:text="="
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="14sp"
                         tools:ignore="MissingConstraints" />
 
@@ -82,7 +82,7 @@
                         android:gravity="left"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="16sp"
                         tools:ignore="MissingConstraints"
                         tools:text="L100" />
@@ -94,6 +94,7 @@
                         android:layout_marginEnd="16dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:src="@drawable/ic_menu"
+                        android:tint="@color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -104,7 +105,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@font/barlowsemicondensed_medium"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toTopOf="@+id/priceDateLbl"
                         app:layout_constraintEnd_toStartOf="@+id/menuBut"
@@ -119,7 +120,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         android:fontFamily="@font/barlowsemicondensed_light"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/price_change_text"
@@ -146,7 +147,7 @@
         android:layout_height="64dp"
         android:layout_alignParentBottom="true"
         android:theme="@style/BottomNavTheme"
-        app:backgroundTint="@color/litecoin_litewallet_blue"
+        app:backgroundTint="@color/garlicoin_garlicwallet_yellow"
         app:itemIconTint="@color/bottom_nav_icon_tint_selector"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav_menu" />

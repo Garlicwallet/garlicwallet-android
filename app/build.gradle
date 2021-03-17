@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
-apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'
 
 apply plugin: 'com.google.firebase.crashlytics'
 
@@ -242,10 +242,9 @@ dependencies {
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'
 
-    api project(":partnerapi")
-
     // Dagger
     implementation 'com.google.dagger:dagger:2.27'
+    annotationProcessor "com.google.dagger:dagger-android-processor:2.27"
     kapt 'com.google.dagger:dagger-compiler:2.27'
 
     // Ktlint
