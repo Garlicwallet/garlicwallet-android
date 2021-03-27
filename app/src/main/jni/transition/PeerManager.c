@@ -335,7 +335,7 @@ Java_com_breadwallet_wallet_BRPeerManager_putBlock(JNIEnv *env, jobject thiz, jb
 
     assert(blockBytes != NULL);
     if (!blockBytes) return;
-    b = BRMerkleBlockParse((const uint8_t *) blockBytes, (size_t) blockLength);
+    b = BRMerkleBlockParse((const uint8_t *) blockBytes, (size_t) blockLength, blockHeight);
     if (!b) return;
     b->height = (uint32_t) blockHeight;
 //    __android_log_print(ANDROID_LOG_ERROR, "Message from C: ", "adding a block: blockhight: %d", b->height);
