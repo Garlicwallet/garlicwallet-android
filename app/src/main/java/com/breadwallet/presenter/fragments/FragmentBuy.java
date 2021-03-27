@@ -67,7 +67,7 @@ public class FragmentBuy extends Fragment {
     private ProgressBar progress;
     private WebView webView;
     private String onCloseUrl;
-    private static final String URL_BUY_LTC = BuildConfig.DEBUG ? "https://api-stage.lite-wallet.org" : "https://api-prod.lite-wallet.org";
+    private static final String URL_BUY_GRLC = BuildConfig.DEBUG ? "https://api-stage.lite-wallet.org" : "https://api-prod.lite-wallet.org";
     static final String CURRENCY_KEY = "currency_code_key";
     private ValueCallback<Uri> uploadMessage;
     private ValueCallback<Uri[]> uploadMessageAboveL;
@@ -125,7 +125,7 @@ public class FragmentBuy extends Fragment {
     }
 
     private String url(Object... args) {
-        return String.format(URL_BUY_LTC + "?address=%s&code=%s&idate=%s&uid=%s", args);
+        return String.format(URL_BUY_GRLC + "?address=%s&code=%s&idate=%s&uid=%s", args);
     }
 
     private void closePayment() {

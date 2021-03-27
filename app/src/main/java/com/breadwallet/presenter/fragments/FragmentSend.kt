@@ -133,7 +133,7 @@ class FragmentSend : Fragment() {
         feeDescription = rootView.findViewById<View>(R.id.fee_description) as TextView
         warningText = rootView.findViewById<View>(R.id.warning_text) as TextView
         close = rootView.findViewById<View>(R.id.close_button) as ImageButton
-        selectedIso = if (BRSharedPrefs.getPreferredLTC(context)) "LTC" else BRSharedPrefs.getIso(context)
+        selectedIso = if (BRSharedPrefs.getPreferredGRLC(context)) "GRLC" else BRSharedPrefs.getIso(context)
         amountBuilder = StringBuilder(0)
         setListeners()
         isoText.text = getString(R.string.Send_amountLabel)
@@ -295,7 +295,7 @@ class FragmentSend : Fragment() {
         })
         isoButton.setOnClickListener {
             selectedIso = if (selectedIso.equals(BRSharedPrefs.getIso(context), ignoreCase = true)) {
-                "LTC"
+                "GRLC"
             } else {
                 BRSharedPrefs.getIso(context)
             }

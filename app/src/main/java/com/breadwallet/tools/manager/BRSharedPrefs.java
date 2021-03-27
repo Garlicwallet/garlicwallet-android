@@ -253,14 +253,14 @@ public class BRSharedPrefs {
     }
 
     //if the user prefers all in litecoin units, not other currencies
-    public static boolean getPreferredLTC(Context activity) {
+    public static boolean getPreferredGRLC(Context activity) {
         SharedPreferences prefs = activity.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
         return prefs.getBoolean("priceSetToLitecoin", true);
     }
 
     //if the user prefers all in litecoin units, not other currencies
-    public static void putPreferredLTC(Context activity, boolean b) {
-        Timber.d("putPreferredLTC: %s", b);
+    public static void putPreferredGRLC(Context activity, boolean b) {
+        Timber.d("putPreferredGRLC: %s", b);
         SharedPreferences prefs = activity.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("priceSetToLitecoin", b);
@@ -339,7 +339,7 @@ public class BRSharedPrefs {
 
     public static int getCurrencyUnit(Context context) {
         SharedPreferences settingsToGet = context.getSharedPreferences(BRConstants.PREFS_NAME, 0);
-        return settingsToGet.getInt(BRConstants.CURRENT_UNIT, BRConstants.CURRENT_UNIT_LITECOINS);
+        return settingsToGet.getInt(BRConstants.CURRENT_UNIT, BRConstants.CURRENT_UNIT_GARLICOINS);
     }
 
     public static void putCurrencyUnit(Context context, int unit) {

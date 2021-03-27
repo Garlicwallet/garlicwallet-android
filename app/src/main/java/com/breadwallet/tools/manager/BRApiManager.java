@@ -157,27 +157,13 @@ public class BRApiManager {
 
 
     public static JSONArray fetchRates(Activity activity) {
-        String jsonString = urlGET(activity, "https://api.loshan.co.uk/api/v1/rates");
+        String jsonString = urlGET(activity, "https://api.garlicwallet.com/garlicoin-price");
         JSONArray jsonArray = null;
         if (jsonString == null) return null;
         try {
             jsonArray = new JSONArray(jsonString);
         } catch (JSONException ex) {
             Timber.e(ex);
-        }
-        return jsonArray == null ? backupFetchRates(activity) : jsonArray;
-    }
-
-    public static JSONArray backupFetchRates(Activity activity) {
-        String jsonString = urlGET(activity, "https://api.loafwallet.org/api/v1/rates");
-
-        JSONArray jsonArray = null;
-        if (jsonString == null) return null;
-        try {
-            jsonArray = new JSONArray(jsonString);
-
-        } catch (JSONException e) {
-            Timber.e(e);
         }
         return jsonArray;
     }

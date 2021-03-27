@@ -50,7 +50,7 @@ public class DynamicDonationFragment extends Fragment {
 
     private SeekBar seekBar;
     private String selectedIso;
-    private boolean isLTCSwap = true;
+    private boolean isGRLCSwap = true;
     private Pair<String, String> chosenAddress;
     private long mDonationAmount;
 
@@ -64,7 +64,7 @@ public class DynamicDonationFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         selectedIso = BRSharedPrefs.getIso(getContext());
-        isLTCSwap = BRSharedPrefs.getPreferredLTC(getContext());
+        isGRLCSwap = BRSharedPrefs.getPreferredGRLC(getContext());
 
         addressVal = view.findViewById(R.id.addressVal);
 
@@ -200,16 +200,16 @@ public class DynamicDonationFragment extends Fragment {
 
         final BigDecimal total = new BigDecimal(donationAmount + feeAmount);
 
-        amountVal.setText(formatResultAmount(formatLtcAmount(donation), formatIsoAmount(donation)));
-        feeVal.setText(formatResultAmount(formatLtcAmount(fee), formatIsoAmount(fee)));
-        totalVal.setText(formatResultAmount(formatLtcAmount(total), formatIsoAmount(total)));
+        amountVal.setText(formatResultAmount(formatGrlcAmount(donation), formatIsoAmount(donation)));
+        feeVal.setText(formatResultAmount(formatGrlcAmount(fee), formatIsoAmount(fee)));
+        totalVal.setText(formatResultAmount(formatGrlcAmount(total), formatIsoAmount(total)));
 
         amountSliderVal.setText(totalVal.getText());
     }
 
-    private String formatLtcAmount(BigDecimal amount) {
-        BigDecimal ltcAmount = BRExchange.getBitcoinForSatoshis(getContext(), amount);
-        return BRCurrency.getFormattedCurrencyString(getContext(), "LTC", ltcAmount);
+    private String formatGrlcAmount(BigDecimal amount) {
+        BigDecimal grlcAmount = BRExchange.getBitcoinForSatoshis(getContext(), amount);
+        return BRCurrency.getFormattedCurrencyString(getContext(), "GRLC", grlcAmount);
     }
 
     private String formatIsoAmount(BigDecimal amount) {
@@ -217,12 +217,12 @@ public class DynamicDonationFragment extends Fragment {
         return BRCurrency.getFormattedCurrencyString(getContext(), selectedIso, fiatAmount);
     }
 
-    private String formatResultAmount(String ltcAmount, String isoAmount) {
+    private String formatResultAmount(String grlcAmount, String isoAmount) {
         String format = "%s (%s)";
-        if (isLTCSwap) {
-            return String.format(format, ltcAmount, isoAmount);
+        if (isGRLCSwap) {
+            return String.format(format, grlcAmount, isoAmount);
         } else {
-            return String.format(format, isoAmount, ltcAmount);
+            return String.format(format, isoAmount, grlcAmount);
         }
     }
 }

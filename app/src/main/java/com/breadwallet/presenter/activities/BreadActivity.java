@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -104,8 +105,8 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     private Button secondaryPrice;
     private TextView equals;
     private ImageButton menuBut;
-    private TextView ltcPriceLbl;
-    private TextView ltcPriceDateLbl;
+    private TextView grlcPriceLbl;
+    private TextView grlcPriceDateLbl;
 
     public static boolean appVisible = false;
     public ViewFlipper barFlipper;
@@ -246,13 +247,13 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     private void swap() {
         if (!BRAnimator.isClickAllowed()) return;
-        boolean b = !BRSharedPrefs.getPreferredLTC(this);
+        boolean b = !BRSharedPrefs.getPreferredGRLC(this);
         setPriceTags(b, true);
-        BRSharedPrefs.putPreferredLTC(this, b);
+        BRSharedPrefs.putPreferredGRLC(this, b);
         BRSharedPrefs.notifyIsoChanged("");
     }
 
-    private void setPriceTags(boolean ltcPreferred, boolean animate) {
+    private void setPriceTags(boolean grlcPreferred, boolean animate) {
         ConstraintSet set = new ConstraintSet();
         set.clone(toolBarConstraintLayout);
 
@@ -270,8 +271,8 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             TransitionManager.beginDelayedTransition(toolBarConstraintLayout, transition);
         }
 
-        primaryPrice.setTextSize(ltcPreferred ? PRIMARY_TEXT_SIZE : SECONDARY_TEXT_SIZE);
-        secondaryPrice.setTextSize(ltcPreferred ? SECONDARY_TEXT_SIZE : PRIMARY_TEXT_SIZE);
+        primaryPrice.setTextSize(grlcPreferred ? PRIMARY_TEXT_SIZE : SECONDARY_TEXT_SIZE);
+        secondaryPrice.setTextSize(grlcPreferred ? SECONDARY_TEXT_SIZE : PRIMARY_TEXT_SIZE);
 
         int[] ids = {primaryPrice.getId(), secondaryPrice.getId(), equals.getId()};
         // Clear views constraints
@@ -284,8 +285,8 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         int dp16 = Utils.getPixelsFromDps(this, 16);
         int dp8 = Utils.getPixelsFromDps(this, 4);
 
-        int leftId = ltcPreferred ? primaryPrice.getId() : secondaryPrice.getId();
-        int rightId = ltcPreferred ? secondaryPrice.getId() : primaryPrice.getId();
+        int leftId = grlcPreferred ? primaryPrice.getId() : secondaryPrice.getId();
+        int rightId = grlcPreferred ? secondaryPrice.getId() : primaryPrice.getId();
 
         int[] chainViews = {leftId, equals.getId(), rightId};
 
@@ -388,8 +389,8 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     private void initializeViews() {
         menuBut = findViewById(R.id.menuBut);
         bottomNav = findViewById(R.id.bottomNav);
-        ltcPriceLbl = findViewById(R.id.price_change_text);
-        ltcPriceDateLbl = findViewById(R.id.priceDateLbl);
+        grlcPriceLbl = findViewById(R.id.price_change_text);
+        grlcPriceDateLbl = findViewById(R.id.priceDateLbl);
 
         primaryPrice = findViewById(R.id.primary_price);
         secondaryPrice = findViewById(R.id.secondary_price);
@@ -407,11 +408,11 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 }
                 if (uiIsDone) return;
                 uiIsDone = true;
-                setPriceTags(BRSharedPrefs.getPreferredLTC(BreadActivity.this), false);
+                setPriceTags(BRSharedPrefs.getPreferredGRLC(BreadActivity.this), false);
             }
         });
 
-        ltcPriceLbl.setTextSize(PRIMARY_TEXT_SIZE);
+        grlcPriceLbl.setTextSize(PRIMARY_TEXT_SIZE);
     }
 
     @Override
@@ -429,15 +430,15 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
                 CurrencyEntity currency = CurrencyDataSource.getInstance(BreadActivity.this).getCurrencyByIso(iso);
                 final BigDecimal roundedPriceAmount = new BigDecimal(currency.rate).multiply(new BigDecimal(100))
-                        .divide(new BigDecimal(100), 2, BRConstants.ROUNDING_MODE);
+                        .divide(new BigDecimal(100), 4, BRConstants.ROUNDING_MODE);
                 final String formattedCurrency = BRCurrency.getFormattedCurrencyString(BreadActivity.this, iso, roundedPriceAmount);
 
-                //current amount in litoshis
+                //current amount in cloves
                 final BigDecimal amount = new BigDecimal(BRSharedPrefs.getCatchedBalance(BreadActivity.this));
 
-                //amount in LTC units
+                //amount in GRLC units
                 BigDecimal btcAmount = BRExchange.getBitcoinForSatoshis(BreadActivity.this, amount);
-                final String formattedBTCAmount = BRCurrency.getFormattedCurrencyString(BreadActivity.this, "LTC", btcAmount);
+                final String formattedBTCAmount = BRCurrency.getFormattedCurrencyString(BreadActivity.this, "GRLC", btcAmount);
 
                 //amount in currency units
                 final BigDecimal curAmount = BRExchange.getAmountFromSatoshis(BreadActivity.this, iso, amount);
@@ -447,10 +448,10 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                     public void run() {
                         primaryPrice.setText(formattedBTCAmount);
                         secondaryPrice.setText(String.format("%s", formattedCurAmount));
-                        ltcPriceLbl.setText(formattedCurrency);
+                        grlcPriceLbl.setText(formattedCurrency);
                         SimpleDateFormat df = (SimpleDateFormat) DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT);
                         String pattern = df.toPattern().replaceAll("\\W?[Yy]+\\W?", " ");
-                        ltcPriceDateLbl.setText("as of " + android.text.format.DateFormat.format(pattern, new Date()));
+                        grlcPriceDateLbl.setText("as of " + android.text.format.DateFormat.format(pattern, new Date()));
                     }
                 });
             }

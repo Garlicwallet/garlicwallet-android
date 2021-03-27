@@ -138,7 +138,7 @@ public class FragmentRequestAmount extends Fragment {
         signalLayout.removeView(request);
 
         showCurrencyList(false);
-        selectedIso = BRSharedPrefs.getPreferredLTC(getContext()) ? "LTC" : BRSharedPrefs.getIso(getContext());
+        selectedIso = BRSharedPrefs.getPreferredGRLC(getContext()) ? "GRLC" : BRSharedPrefs.getIso(getContext());
 
         signalLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -251,7 +251,7 @@ public class FragmentRequestAmount extends Fragment {
             @Override
             public void onClick(View v) {
                 if (selectedIso.equalsIgnoreCase(BRSharedPrefs.getIso(getContext()))) {
-                    selectedIso = "LTC";
+                    selectedIso = "GRLC";
                 } else {
                     selectedIso = BRSharedPrefs.getIso(getContext());
                 }
@@ -307,7 +307,7 @@ public class FragmentRequestAmount extends Fragment {
                     @Override
                     public void run() {
                         mAddress.setText(receiveAddress);
-                        boolean generated = generateQrImage(receiveAddress, "0", "LTC");
+                        boolean generated = generateQrImage(receiveAddress, "0", "GRLC");
                         if (!generated)
                             throw new RuntimeException("failed to generate qr image for address");
                     }

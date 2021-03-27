@@ -1,6 +1,7 @@
 package com.breadwallet.tools.util;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.breadwallet.tools.manager.BRSharedPrefs;
 
@@ -52,7 +53,7 @@ public class BRCurrency {
         Currency currency;
         String symbol;
         decimalFormatSymbols = currencyFormat.getDecimalFormatSymbols();
-        if (Objects.equals(isoCurrencyCode, "LTC")) {
+        if (Objects.equals(isoCurrencyCode, "GRLC")) {
             symbol = BRExchange.getBitcoinSymbol(app);
         } else {
             try {
@@ -64,16 +65,25 @@ public class BRCurrency {
         }
         decimalFormatSymbols.setCurrencySymbol(symbol);
         currencyFormat.setGroupingUsed(true);
-        currencyFormat.setMaximumFractionDigits(BRSharedPrefs.getCurrencyUnit(app) == BRConstants.CURRENT_UNIT_LITECOINS ? 8 : 2);
+        boolean currentUnitGarlicoins = BRSharedPrefs.getCurrencyUnit(app) == BRConstants.CURRENT_UNIT_GARLICOINS;
+        int fractionalDigits = 2;
+        if(currentUnitGarlicoins){
+            fractionalDigits = 8;
+        }else if(amount.compareTo(BigDecimal.ONE) < 0){
+            fractionalDigits = 4;
+        }
         currencyFormat.setDecimalFormatSymbols(decimalFormatSymbols);
         currencyFormat.setNegativePrefix(decimalFormatSymbols.getCurrencySymbol() + "-");
         currencyFormat.setNegativeSuffix("");
-        return currencyFormat.format(amount.doubleValue());
+        currencyFormat.setMaximumFractionDigits(fractionalDigits);
+        currencyFormat.setMinimumFractionDigits(fractionalDigits);
+        Log.e("LOG",  amount.toString() + " fractionalDigits " + fractionalDigits + " " + currencyFormat.getMinimumFractionDigits() + " " + amount.doubleValue());
+        return currencyFormat.format(amount);
     }
 
     public static String getSymbolByIso(Context app, String iso) {
         String symbol;
-        if (Objects.equals(iso, "LTC")) {
+        if (Objects.equals(iso, "GRLC")) {
             String currencySymbolString = BRConstants.bitcoinLowercase;
             if (app != null) {
                 int unit = BRSharedPrefs.getCurrencyUnit(app);
@@ -84,7 +94,7 @@ public class BRCurrency {
                     case BRConstants.CURRENT_UNIT_LITES:
                         currencySymbolString = "m" + BRConstants.bitcoinUppercase;
                         break;
-                    case BRConstants.CURRENT_UNIT_LITECOINS:
+                    case BRConstants.CURRENT_UNIT_GARLICOINS:
                         currencySymbolString = BRConstants.bitcoinUppercase;
                         break;
                 }
@@ -104,7 +114,7 @@ public class BRCurrency {
 
     //for now only use for BTC and Bits
     public static String getCurrencyName(Context app, String iso) {
-        if (Objects.equals(iso, "LTC")) {
+        if (Objects.equals(iso, "GRLC")) {
             if (app != null) {
                 int unit = BRSharedPrefs.getCurrencyUnit(app);
                 switch (unit) {
@@ -112,8 +122,8 @@ public class BRCurrency {
                         return "Bits";
                     case BRConstants.CURRENT_UNIT_LITES:
                         return "MBits";
-                    case BRConstants.CURRENT_UNIT_LITECOINS:
-                        return "LTC";
+                    case BRConstants.CURRENT_UNIT_GARLICOINS:
+                        return "GRLC";
                 }
             }
         }
@@ -123,7 +133,7 @@ public class BRCurrency {
     public static int getMaxDecimalPlaces(String iso) {
         if (Utils.isNullOrEmpty(iso)) return 8;
 
-        if (iso.equalsIgnoreCase("LTC")) {
+        if (iso.equalsIgnoreCase("GRLC")) {
             return 8;
         } else {
             Currency currency = Currency.getInstance(iso);

@@ -99,7 +99,7 @@ public class BRConstants {
      */
     public static final int CURRENT_UNIT_PHOTONS = 0; // formerly CURRENT_UNIT_BITS
     public static final int CURRENT_UNIT_LITES = 1; // formerly CURRENT_UNIT_MBITS
-    public static final int CURRENT_UNIT_LITECOINS = 2;
+    public static final int CURRENT_UNIT_GARLICOINS = 2;
 
     public static final String bitcoinLowercase = "\u01E5";
     public static final String bitcoinUppercase = "\u20B2";
@@ -142,8 +142,8 @@ public class BRConstants {
     public static final String _20191105_AL = "APP_LAUNCHED";
     public static final String _20191105_VSC = "VISIT_SEND_CONTROLLER";
     public static final String _20202116_VRC = "VISIT_RECEIVE_CONTROLLER";
-    public static final String _20191105_DSL = "DID_SEND_LTC";
-    public static final String _20191105_DULP = "DID_UPDATE_LTC_PRICE";
+    public static final String _20191105_DSL = "DID_SEND_GRLC";
+    public static final String _20191105_DULP = "DID_UPDATE_GRLC_PRICE";
     public static final String _20191105_DTBT = "DID_TAP_BUY_TAB";
     public static final String _20200111_DEDG = "DID_ENTER_DISPATCH_GROUP";
     public static final String _20200111_DLDG = "DID_LEAVE_DISPATCH_GROUP";
