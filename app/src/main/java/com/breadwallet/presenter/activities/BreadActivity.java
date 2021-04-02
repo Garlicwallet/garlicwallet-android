@@ -427,8 +427,11 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 Thread.currentThread().setName(Thread.currentThread().getName() + ":updateUI");
                 //sleep a little in order to make sure all the commits are finished (like SharePreferences commits)
                 String iso = BRSharedPrefs.getIso(BreadActivity.this);
-
+                Log.i("TESTING", "CURRENCY = " + iso);
                 CurrencyEntity currency = CurrencyDataSource.getInstance(BreadActivity.this).getCurrencyByIso(iso);
+                if(currency==null) return; //TODO HANDLE
+                //Attempt to read from field 'float com.breadwallet.presenter.entities.CurrencyEntity.rate' on a null object reference
+
                 final BigDecimal roundedPriceAmount = new BigDecimal(currency.rate).multiply(new BigDecimal(100))
                         .divide(new BigDecimal(100), 4, BRConstants.ROUNDING_MODE);
                 final String formattedCurrency = BRCurrency.getFormattedCurrencyString(BreadActivity.this, iso, roundedPriceAmount);

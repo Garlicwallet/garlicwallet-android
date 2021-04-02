@@ -162,30 +162,30 @@ public class AuthManager {
         }
     }
 
-    public void updateDots(Context context, int pinLimit, String pin, View dot1, View dot2, View dot3, View dot4, View dot5, View dot6, int emptyPinRes, final OnPinSuccess onPinSuccess) {
+    public void updateDots(Context context, int pinLimit, String pin, View dot1, View dot2, View dot3, View dot4, View dot5, View dot6, int emptyPinRes, int filledPinRes, final OnPinSuccess onPinSuccess) {
         if (dot1 == null || context == null) return;
         int selectedDots = pin.length();
 
         if (pinLimit == 6) {
             dot6.setVisibility(View.VISIBLE);
             dot1.setVisibility(View.VISIBLE);
-            dot1.setBackground(context.getDrawable(selectedDots <= 0 ? emptyPinRes : R.drawable.ic_pin_dot_black));
+            dot1.setBackground(context.getDrawable(selectedDots <= 0 ? emptyPinRes : filledPinRes));
             selectedDots--;
         } else {
             dot6.setVisibility(View.GONE);
             dot1.setVisibility(View.GONE);
         }
 
-        dot2.setBackground(context.getDrawable(selectedDots <= 0 ? emptyPinRes : R.drawable.ic_pin_dot_black));
+        dot2.setBackground(context.getDrawable(selectedDots <= 0 ? emptyPinRes : filledPinRes));
         selectedDots--;
-        dot3.setBackground(context.getDrawable(selectedDots <= 0 ? emptyPinRes : R.drawable.ic_pin_dot_black));
+        dot3.setBackground(context.getDrawable(selectedDots <= 0 ? emptyPinRes : filledPinRes));
         selectedDots--;
-        dot4.setBackground(context.getDrawable(selectedDots <= 0 ? emptyPinRes : R.drawable.ic_pin_dot_black));
+        dot4.setBackground(context.getDrawable(selectedDots <= 0 ? emptyPinRes : filledPinRes));
         selectedDots--;
-        dot5.setBackground(context.getDrawable(selectedDots <= 0 ? emptyPinRes : R.drawable.ic_pin_dot_black));
+        dot5.setBackground(context.getDrawable(selectedDots <= 0 ? emptyPinRes : filledPinRes));
         if (pinLimit == 6) {
             selectedDots--;
-            dot6.setBackground(context.getDrawable(selectedDots <= 0 ? emptyPinRes : R.drawable.ic_pin_dot_black));
+            dot6.setBackground(context.getDrawable(selectedDots <= 0 ? emptyPinRes : filledPinRes));
         }
 
         if (pin.length() == pinLimit) {
