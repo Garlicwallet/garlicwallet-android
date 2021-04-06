@@ -60,7 +60,7 @@ import timber.log.Timber;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
+//TODO not planning to support this any time soon.
 public class FragmentBuy extends Fragment {
     private static final int FILE_CHOOSER_REQUEST_CODE = 15423;
     public LinearLayout backgroundLayout;

@@ -65,7 +65,7 @@ public class BRConstants {
      * Request codes for take picture
      */
     public static final int SCANNER_REQUEST = 201;
-    public static final int SCANNER_BCH_REQUEST = 202;
+    public static final int SCANNER_BCH_REQUEST = 202; //Unused
     public static final int REQUEST_IMAGE_CAPTURE = 203;
 
     public static final String CANARY_STRING = "canary";
