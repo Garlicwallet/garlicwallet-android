@@ -159,7 +159,8 @@ class FragmentSend : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        bindProgressButton(udLookupButton)
+        //TODO choose to support this?
+        //bindProgressButton(udLookupButton)
     }
 
     private fun setupFeesSelector(rootView: View) {
@@ -307,6 +308,7 @@ class FragmentSend : Fragment() {
             BRAnimator.openScanner(activity, BRConstants.SCANNER_REQUEST)
         })
 
+        /* TODO possibly choose to support this later? check if possible
         udLookupButton.setOnClickListener {
             // Disable the button until the domain string is at least 4 chars long (e.g a.zil)
             if (udDomainEdit.text.trimmedLength() < 4) return@setOnClickListener
@@ -338,6 +340,7 @@ class FragmentSend : Fragment() {
                     }
             )
         }
+         */
 
         send.setOnClickListener(View.OnClickListener { //not allowed now
             if (!BRAnimator.isClickAllowed()) {
@@ -369,12 +372,14 @@ class FragmentSend : Fragment() {
                 AnalyticsManager.logCustomEvent(BRConstants._20191105_DSL)
             }
         })
+        /*TODO move this elsewhere? decide if we even want this.
         donate.setOnClickListener(View.OnClickListener { //not allowed now
             if (!BRAnimator.isClickAllowed()) {
                 return@OnClickListener
             }
             BRAnimator.showDynamicDonationFragment(activity!!)
         })
+         */
         backgroundLayout.setOnClickListener(View.OnClickListener {
             if (!BRAnimator.isClickAllowed()) return@OnClickListener
             activity!!.onBackPressed()
@@ -535,8 +540,10 @@ class FragmentSend : Fragment() {
         }
         balanceText.text = getString(R.string.Send_balance, formattedBalance)
         feeText.text = String.format(getString(R.string.Send_fee), aproxFee)
+        /* TODO move this elsewhere? decide if we even want this.
         donate.text = getString(R.string.Donate_title, currencySymbol)
         donate.isEnabled = curBalance >= BRConstants.DONATION_AMOUNT * 2
+         */
         amountLayout.requestLayout()
     }
 
