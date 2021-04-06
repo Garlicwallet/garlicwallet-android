@@ -1,6 +1,7 @@
 package com.breadwallet.presenter.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 
 /**
@@ -36,12 +37,12 @@ public class CurrencyEntity implements Serializable {
     public static final String TAG = CurrencyEntity.class.getName();
     public String code;
     public String name;
-    public float rate;
+    public BigDecimal rate;
 
-    public CurrencyEntity(String code, String name, float rate) {
+    public CurrencyEntity(String code, String name, String rate) {
         this.code = code;
         this.name = name;
-        this.rate = rate;
+        this.rate = new BigDecimal(rate);
     }
 
     public CurrencyEntity() {

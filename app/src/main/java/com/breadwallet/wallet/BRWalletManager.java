@@ -37,7 +37,6 @@ import com.breadwallet.tools.animation.BRAnimator;
 import com.breadwallet.tools.animation.BRDialog;
 import com.breadwallet.tools.animation.SpringAnimator;
 import com.breadwallet.tools.manager.AnalyticsManager;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.breadwallet.tools.manager.BRNotificationManager;
 import com.breadwallet.tools.manager.BRSharedPrefs;
 import com.breadwallet.tools.manager.FeeManager;
@@ -118,7 +117,7 @@ public class BRWalletManager {
     }
 
     public long getBalance(Context context) {
-        return BRSharedPrefs.getCatchedBalance(context);
+        return BRSharedPrefs.getCachedBalance(context);
     }
 
     private BRWalletManager() {

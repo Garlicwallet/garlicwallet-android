@@ -25,7 +25,6 @@ import com.breadwallet.tools.util.BRConstants;
 import com.breadwallet.tools.util.BRCurrency;
 
 import java.math.BigDecimal;
-import java.util.Currency;
 
 import timber.log.Timber;
 
@@ -64,6 +63,7 @@ public class DisplayCurrencyActivity extends BRActivity {
         adapter.addAll(CurrencyDataSource.getInstance(this).getAllCurrencies());
         leftButton = findViewById(R.id.left_button);
         rightButton = findViewById(R.id.right_button);
+        /*
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,15 +84,24 @@ public class DisplayCurrencyActivity extends BRActivity {
         } else {
             setButton(false);
         }
+         */
         updateExchangeRate();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                TextView currencyItemText = (TextView) view.findViewById(R.id.currency_item_text);
-                final String selectedCurrency = currencyItemText.getText().toString();
-                String iso = selectedCurrency.substring(0, 3);
-                BRSharedPrefs.putIso(DisplayCurrencyActivity.this, iso);
+                CurrencyEntity selectedCurrency = adapter.getItem(position);
+                if(selectedCurrency == null){
+                    Timber.e(new IllegalArgumentException("Null currency for position " + position));
+                    return;
+                }
+                String currencyCode = selectedCurrency.code;
+                if(currencyCode == null){
+                    Timber.e(new IllegalArgumentException("Null currency code for position " + position));
+                    return;
+                }
+
+                BRSharedPrefs.putIso(DisplayCurrencyActivity.this, currencyCode);
                 BRSharedPrefs.putCurrencyListPosition(DisplayCurrencyActivity.this, position);
 
                 updateExchangeRate();
@@ -107,9 +116,9 @@ public class DisplayCurrencyActivity extends BRActivity {
         String iso = BRSharedPrefs.getIso(this);
         CurrencyEntity entity = CurrencyDataSource.getInstance(this).getCurrencyByIso(iso);
         if (entity != null) {
-            String finalExchangeRate = BRCurrency.getFormattedCurrencyString(DisplayCurrencyActivity.this, BRSharedPrefs.getIso(this), new BigDecimal(entity.rate));
+            String finalExchangeRate = BRCurrency.getFormattedCurrencyString(DisplayCurrencyActivity.this, BRSharedPrefs.getIso(this), entity.rate);
             boolean bits = BRSharedPrefs.getCurrencyUnit(this) == BRConstants.CURRENT_UNIT_LITES;
-            exchangeText.setText(BRCurrency.getFormattedCurrencyString(this, "LTC", new BigDecimal(bits ? 1000 : 1)) + " = " + finalExchangeRate);
+            exchangeText.setText(BRCurrency.getFormattedCurrencyString(this, "GRLC", new BigDecimal(bits ? 1000 : 1)) + " = " + finalExchangeRate);
         }
         adapter.notifyDataSetChanged();
     }
@@ -155,7 +164,8 @@ public class DisplayCurrencyActivity extends BRActivity {
 
         private final Context mContext;
         private final int layoutResourceId;
-        private TextView textViewItem;
+        private TextView currencyNameTextView;
+        private TextView currencyCodeTextView;
         private final Point displayParameters = new Point();
 
         public CurrencyListAdapter(Context mContext) {
@@ -177,14 +187,13 @@ public class DisplayCurrencyActivity extends BRActivity {
                 convertView = inflater.inflate(layoutResourceId, parent, false);
             }
             // get the TextView and then set the text (item name) and tag (item ID) values
-            textViewItem = convertView.findViewById(R.id.currency_item_text);
-            String iso = getItem(position).code;
-            Currency c = null;
-            try {
-                c = Currency.getInstance(iso);
-            } catch (IllegalArgumentException ignored) {
-            }
-            textViewItem.setText(c == null ? iso : String.format("%s (%s)", iso, c.getSymbol()));
+            currencyNameTextView = convertView.findViewById(R.id.currency_item_name);
+            currencyCodeTextView = convertView.findViewById(R.id.currency_item_code);
+
+            CurrencyEntity currencyEntity = getItem(position);
+            currencyCodeTextView.setText(currencyEntity.code);
+            currencyNameTextView.setText(currencyEntity.name);
+
             ImageView checkMark = convertView.findViewById(R.id.currency_checkmark);
             Timber.d( "Value of TMP %s", tmp);
             Timber.d( "Value of position %s", position);
@@ -211,10 +220,10 @@ public class DisplayCurrencyActivity extends BRActivity {
 
         private boolean normalizeTextView() {
             int count = 0;
-            while (!isTextSizeAcceptable(textViewItem)) {
+            while (!isTextSizeAcceptable(currencyNameTextView)) {
                 count++;
-                float textSize = textViewItem.getTextSize();
-                textViewItem.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize - 2);
+                float textSize = currencyNameTextView.getTextSize();
+                currencyNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize - 2);
                 this.notifyDataSetChanged();
             }
             return (count > 0);

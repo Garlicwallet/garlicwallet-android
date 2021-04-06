@@ -47,7 +47,7 @@ public class BRSQLiteHelper extends SQLiteOpenHelper {
     }
 
     private static final String DATABASE_NAME = "loafwallet.db";
-    private static final int DATABASE_VERSION = 12;
+    private static final int DATABASE_VERSION = 13;
 
     /**
      * MerkleBlock table
@@ -106,7 +106,7 @@ public class BRSQLiteHelper extends SQLiteOpenHelper {
     private static final String CURRENCY_DATABASE_CREATE = "create table if not exists " + CURRENCY_TABLE_NAME + "(" +
             CURRENCY_CODE + " text primary key," +
             CURRENCY_NAME + " text," +
-            CURRENCY_RATE + " integer );";
+            CURRENCY_RATE + " text );";
 
 
     @Override

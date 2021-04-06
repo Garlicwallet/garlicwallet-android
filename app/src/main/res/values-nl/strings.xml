@@ -5,7 +5,7 @@
   <!-- About screen blog label -->
   <string name="About.blog">Blog</string>
   <!-- About screen footer -->
-  <string name="About.footer">Gemaakt door het Litewallet-team van de Litecoin Foundation\n%1$s</string>
+  <string name="About.footer">Gemaakt door het Garlicwallet-team van de Garlicoin Foundation\n%1$s</string>
   <!-- Privay Policy button label -->
   <string name="About.privacy">Privacyverklaring</string>
   <!-- About screen reddit label -->
@@ -89,7 +89,7 @@
   <!-- Approve button label -->
   <string name="BitID.approve">Keur goed</string>
   <!-- <sitename> is requesting authentication using your bitcoin wallet -->
-  <string name="BitID.authenticationRequest">%1$s vraagt om authenticatie om je Litecoin-portemonnee te gebruiken</string>
+  <string name="BitID.authenticationRequest">%1$s vraagt om authenticatie om je Garlicoin-portemonnee te gebruiken</string>
   <!-- Deny button label -->
   <string name="BitID.deny">Weigeren</string>
   <!-- BitID error alert title -->
@@ -140,8 +140,8 @@
   <string name="ConfirmPaperPhrase.label">Voer de volgende woorden in van je papieren sleutel om te verzekeren dat alles correct is opgeschreven.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">Woord #%1$s</string>
-  <!-- Litecoin denomination picker label -->
-  <string name="DefaultCurrency.litecoinLabel">Litecoin-eenheid</string>
+  <!-- Garlicoin denomination picker label -->
+  <string name="DefaultCurrency.garlicoinLabel">Garlicoin-eenheid</string>
   <!-- Exchange rate label -->
   <string name="DefaultCurrency.rateLabel">Wisselkoers</string>
   <!-- Email unavailable alert title -->
@@ -171,7 +171,7 @@
   <!-- Checking private key balance progress view text -->
   <string name="Import.checking">Persoonlijke sleutel balans checken...</string>
   <!-- Sweep private key confirmation message -->
-  <string name="Import.confirm">%1$s van deze persoonlijke sleutel naar je portemonnee sturen? Het Litecoin netwerk zal een heffing ontvangen van %2$s.</string>
+  <string name="Import.confirm">%1$s van deze persoonlijke sleutel naar je portemonnee sturen? Het Garlicoin netwerk zal een heffing ontvangen van %2$s.</string>
   <!-- Duplicate key error message -->
   <string name="Import.Error.duplicate">Deze persoonlijke sleutel zit al in je portemonnee.</string>
   <!-- empty private key error message -->
@@ -215,9 +215,9 @@
   <!-- Ignore jailbreak warning button -->
   <string name="JailbreakWarnings.ignore">Negeren</string>
   <!-- Jailbreak warning message -->
-  <string name="JailbreakWarnings.messageWithBalance">APPARAAT BEVEILIGING BESCHADIGD\nElke \'jailbreak\' app heeft toegang tot de sleutelhanger data van Loaf en kan hiermee je Litecoins stelen! Wis deze portemonnee direct en herstel het op een veilig apparaat.</string>
+  <string name="JailbreakWarnings.messageWithBalance">APPARAAT BEVEILIGING BESCHADIGD\nElke \'jailbreak\' app heeft toegang tot de sleutelhanger data van Loaf en kan hiermee je Garlicoins stelen! Wis deze portemonnee direct en herstel het op een veilig apparaat.</string>
   <!-- Jailbreak warning message -->
-  <string name="JailbreakWarnings.messageWithoutBalance">APPARAAT BEVEILIGING BESCHADIGD\nElke \'jailbreak\' app heeft toegang tot de sleutelhanger data van Loaf en kan hiermee je Litecoins stelen. Gebruik Loaf a.u.b. alleen op een niet-gejailbreakt apparaat.</string>
+  <string name="JailbreakWarnings.messageWithoutBalance">APPARAAT BEVEILIGING BESCHADIGD\nElke \'jailbreak\' app heeft toegang tot de sleutelhanger data van Loaf en kan hiermee je Garlicoins stelen. Gebruik Loaf a.u.b. alleen op een niet-gejailbreakt apparaat.</string>
   <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">WAARSCHUWING</string>
   <!-- Wipe wallet button -->
@@ -235,7 +235,7 @@
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">Portemonnee Beheren</string>
   <!-- Buy bitcoin title -->
-  <string name="MenuButton.buy">Litecoins Kopen</string>
+  <string name="MenuButton.buy">Garlicoins Kopen</string>
   <!-- Menu button title -->
   <string name="MenuButton.lock">Portemonnee Vergrendelen</string>
   <!-- Menu button title -->
@@ -267,7 +267,7 @@
   <!-- Node status label -->
   <string name="NodeSelector.statusLabel">Connectiestatus van de node</string>
   <!-- Node Selector view title -->
-  <string name="NodeSelector.title">Litecoin-nodes</string>
+  <string name="NodeSelector.title">Garlicoin-nodes</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">Slecht Betalingsverzoek</string>
   <!-- Error opening payment protocol file message -->
@@ -279,9 +279,9 @@
   <!-- Payment too small alert title -->
   <string name="PaymentProtocol.Errors.smallOutputError">Kon de betaling niet uitvoeren</string>
   <!-- Amount too small error message -->
-  <string name="PaymentProtocol.Errors.smallPayment">Litecoin betalingen kunnen niet minder zijn dan %1$s.</string>
+  <string name="PaymentProtocol.Errors.smallPayment">Garlicoin betalingen kunnen niet minder zijn dan %1$s.</string>
   <!-- Output too small error message. -->
-  <string name="PaymentProtocol.Errors.smallTransaction">Litecoin transactie outputs kunnen niet minder zijn dan %1$s.</string>
+  <string name="PaymentProtocol.Errors.smallTransaction">Garlicoin transactie outputs kunnen niet minder zijn dan %1$s.</string>
   <!-- Unsupported signature type payment protocol error message -->
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">niet-ondersteund handtekening type</string>
   <!-- Untrusted certificate payment protocol error message -->
@@ -379,7 +379,7 @@
   <!-- extimated time -->
   <string name="ReScan.body1">20-45 minuten</string>
   <!-- Syncing explanation -->
-  <string name="ReScan.body2">Als een transactie als voltooid staat op het Litecoin netwerk maar niet in je Loaf.</string>
+  <string name="ReScan.body2">Als een transactie als voltooid staat op het Garlicoin netwerk maar niet in je Loaf.</string>
   <!-- Syncing explanation -->
   <string name="ReScan.body3">Je kreeg herhaaldelijk een foutmelding die zei dat je transactie werd afgewezen.</string>
   <!-- Start Sync button label -->
@@ -405,7 +405,7 @@
   <!-- Security Center Info -->
   <string name="SecurityCenter.info">Activeer alle veiligheidsmaatregelen voor maximale bescherming.</string>
   <!-- Paper Key button description -->
-  <string name="SecurityCenter.paperKeyDescription">De enige manier om toegang te hebben tot je Litecoins is als je je telefoon verliest of upgrade.</string>
+  <string name="SecurityCenter.paperKeyDescription">De enige manier om toegang te hebben tot je Garlicoins is als je je telefoon verliest of upgrade.</string>
   <!-- Paper Key button title -->
   <string name="SecurityCenter.paperKeyTitle">Papieren Sleutel</string>
   <!-- PIN button description -->
@@ -445,9 +445,9 @@
   <!-- Payee identity not certified alert title. -->
   <string name="Send.identityNotCertified">Begunstigde is niet gecertifcieerd.</string>
   <!-- Invalid address alert message -->
-  <string name="Send.invalidAddressMessage">Het bestemmingsadres is geen geldig Litecoin-adres.</string>
+  <string name="Send.invalidAddressMessage">Het bestemmingsadres is geen geldig Garlicoin-adres.</string>
   <!-- Invalid address on pasteboard message -->
-  <string name="Send.invalidAddressOnPasteboard">Plakbord bevat geen geldig Litecoin adres.</string>
+  <string name="Send.invalidAddressOnPasteboard">Plakbord bevat geen geldig Garlicoin adres.</string>
   <!-- Invalid address alert title -->
   <string name="Send.invalidAddressTitle">Ongeldig Adres</string>
   <!-- Is rescanning error message -->
@@ -471,7 +471,7 @@
   <!-- Send screen title (as in "this is the screen for sending money") -->
   <string name="Send.title">Versturen</string>
   <!-- Send money to label -->
-  <string name="Send.toLabel">Voer een Litecoin-adres in</string>
+  <string name="Send.toLabel">Voer een Garlicoin-adres in</string>
 
   <!-- Enter to match domain name to LTC Address -->
   <string name="Send.UnstoppableDomains.placeholder">Voer een .crypto- of .zil-domein in</string>
@@ -483,7 +483,7 @@
   <string name="Send.UnstoppableDomains.domainResolved">Uw adres is opgelost!</string>
 
   <!-- Adress already used alert message - first part -->
-  <string name="Send.UsedAddress.firstLine">Litecoin adressen zijn alleen bedoeld voor enkel gebruik.</string>
+  <string name="Send.UsedAddress.firstLine">Garlicoin adressen zijn alleen bedoeld voor enkel gebruik.</string>
   <!-- Adress already used alert message - second part -->
   <string name="Send.UsedAddress.secondLIne">Hergebruikt vermindert privacy voor zowel jou en de ontvanger en kan resulteren in verlies als de ontvanger niet direct het adres beheert.</string>
   <!-- Adress already used alert title -->
@@ -535,7 +535,7 @@
   <!-- Argument is date -->
   <string name="StartPaperPhrase.date">Je hebt voor het laatst je papieren sleutel opgeschreven op %1$s</string>
   <!-- Start view message -->
-  <string name="StartViewController.message">De veiligste en betrouwbaarste manier om Litecoin te gebruiken.</string>
+  <string name="StartViewController.message">De veiligste en betrouwbaarste manier om Garlicoin te gebruiken.</string>
   <!-- Syncing view connectiong state header text -->
   <string name="SyncingView.connecting">Aan het verbinden</string>
   <!-- Syncing view header text -->
@@ -645,7 +645,7 @@
   <!-- "Sent [$5] to [address]" => This is the "to [address]" part. -->
   <string name="TransactionDetails.to">aan %1$s</string>
   <!-- Transaction ID header -->
-  <string name="TransactionDetails.txHashHeader">Litecoin Transactie-ID</string>
+  <string name="TransactionDetails.txHashHeader">Garlicoin Transactie-ID</string>
   <!-- (this transaction was) Received at this address: -->
   <string name="TransactionDirection.address">Ontvangen op dit adres</string>
   <!-- (this transaction was) Sent to this address: -->
@@ -673,7 +673,7 @@
   <!-- Wallet unlocked message -->
   <string name="UnlockScreen.unlocked">Portemonnee Ontgrendeld</string>
   <!-- Update PIN caption text -->
-  <string name="UpdatePin.caption">Onthoud deze PIN. Als je deze vergeet, zul je niet in staat zijn om bij je Litecoins te kunnen.</string>
+  <string name="UpdatePin.caption">Onthoud deze PIN. Als je deze vergeet, zul je niet in staat zijn om bij je Garlicoins te kunnen.</string>
   <!-- PIN creation info. -->
   <string name="UpdatePin.createInstruction">Je PIN zal worden gebruikt om je Loaf te ontgrendelen en geld te versturen.</string>
   <!-- Update PIN title -->
@@ -748,7 +748,7 @@
   <string name="WritePaperPhrase.previous">Vorige</string>
   <!-- 1 of 3 -->
   <string name="WritePaperPhrase.step">%1$d van %2$d</string>
-  <string name="Donate.title">Tik om te doneren aan de Litecoin Foundation (%1$s)</string>
+  <string name="Donate.title">Tik om te doneren aan de Garlicoin Foundation (%1$s)</string>
   <string name="Donate.title.confirmation">Bevestig donatie</string>
   <string name="Confirmation.processingAndDonationTime">Verwerkingstijd: het verwerken van deze transacties duurt %1$s minuten.</string>
   <string name="Confirmation.donateLabel">Te doneren bedrag:</string>
@@ -760,8 +760,8 @@
   <string name="FeeSelector.luxuryTime">2.5 - 5+ minuten</string>
   <string name="BottomNavItem.History.title">GESCHIEDENIS</string>
   <string name="BottomNavItem.Card.title">KAART</string>
-  <string name="LitecoinCard.cardBalance">Kaartsaldo</string>
-  <string name="LitecoinCard.logout">Uitloggen</string>
+  <string name="GarlicoinCard.cardBalance">Kaartsaldo</string>
+  <string name="GarlicoinCard.logout">Uitloggen</string>
   <string name="Register.Hint.mobileNumber">Mobiele nummer</string>
   <string name="Register.Hint.zipPostalCode">Postcode</string>
   <string name="Register.Hint.country">Land</string>
@@ -771,13 +771,13 @@
   <string name="Register.Hint.confirmPassword">bevestig wachtwoord</string>
   <string name="Register.Hint.lastName">Achternaam</string>
   <string name="Register.Hint.firstName">Voornaam</string>
-  <string name="Register.registerCardPhrase">Registreer voor Litecoin Card</string>
+  <string name="Register.registerCardPhrase">Registreer voor Garlicoin Card</string>
   <string name="Login.Dialog.forgotPassword.reset">Wachtwoord opnieuw instellen</string>
   <string name="Login.register">Registreren</string>
   <string name="Login.login">Log in</string>
   <string name="Login.forgotPassword">Wachtwoord vergeten?</string>
   <string name="Login.Hint.password">Wachtwoord</string>
-  <string name="Login.Dialog.forgotPasswordMessage">Ga naar https://litecoin.dashboard.getblockcard.com/password/forgot om uw wachtwoord te resetten.</string>
+  <string name="Login.Dialog.forgotPasswordMessage">Ga naar https://garlicoin.dashboard.getblockcard.com/password/forgot om uw wachtwoord te resetten.</string>
   <string name="Login.Dialog.forgotPassword.visit">Bezoek</string>
   <string name="required">Verplicht veld</string>
   <string name="wrong_email_format">Ongeldig e-mailadres</string>
@@ -787,10 +787,10 @@
   <string name="mismatch_password">Wachtwoord komt niet overeen</string>
   <string name="Error.emailNotVerified">U moet uw e-mailadres verifiëren voordat u kunt inloggen.</string>
   <string name="Error.wrong2faTokenProvided">Verkeerde 2FA opgegeven</string>
-  <string name="BuyCenter.simplex.FinancialDetails">• Krijg Litecoin in 5 minuten! \\n • Koop Litecoin via creditcard \\n • Paspoort of staat ID</string>
+  <string name="BuyCenter.simplex.FinancialDetails">• Krijg Garlicoin in 5 minuten! \\n • Koop Garlicoin via creditcard \\n • Paspoort of staat ID</string>
   <string name="ManageWallet.balance">Saldo</string>
-  <string name="LitecoinCard.Disclaimer.bullets">- Nieuwe registratie\\n- Inloggen (bestaand account)\\n- Geen saldo weergegeven\\n- Geen overdracht\\n- Alleen in de VS.</string>
-  <string name="LitecoinCard.Disclaimer.description">Litecoin Card heeft momenteel beperkte functionaliteit in Litewallet.</string>
-  <string name="LitecoinCard.Disclaimer.referral">Bezoek litecoin.getblockcard.com voor volledige toegang</string>
-  <string name="LitecoinCard.Disclaimer.title">Litecoin Card Beta</string>
+  <string name="GarlicoinCard.Disclaimer.bullets">- Nieuwe registratie\\n- Inloggen (bestaand account)\\n- Geen saldo weergegeven\\n- Geen overdracht\\n- Alleen in de VS.</string>
+  <string name="GarlicoinCard.Disclaimer.description">Garlicoin Card heeft momenteel beperkte functionaliteit in Garlicwallet.</string>
+  <string name="GarlicoinCard.Disclaimer.referral">Bezoek garlicoin.getblockcard.com voor volledige toegang</string>
+  <string name="GarlicoinCard.Disclaimer.title">Garlicoin Card Beta</string>
 </resources>

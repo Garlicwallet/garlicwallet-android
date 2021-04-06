@@ -5,7 +5,7 @@
   <!-- About screen blog label -->
   <string name="About.blog">Блог</string>
   <!-- About screen footer -->
-  <string name="About.footer">Сделано командой Litewallet Фонда Litecoin\n%1$s</string>
+  <string name="About.footer">Сделано командой Garlicwallet Фонда Garlicoin\n%1$s</string>
   <!-- Privay Policy button label -->
   <string name="About.privacy">Политика конфиденциальности</string>
   <!-- About screen reddit label -->
@@ -140,8 +140,8 @@
   <string name="ConfirmPaperPhrase.label">Чтобы убедиться, что всё записано корректно, пожалуйста, введите следующие слова с вашего бумажного ключа.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">Слово #%1$s</string>
-  <!-- Litecoin denomination picker label -->
-  <string name="DefaultCurrency.litecoinLabel">Единица отображения биткойна</string>
+  <!-- Garlicoin denomination picker label -->
+  <string name="DefaultCurrency.garlicoinLabel">Единица отображения биткойна</string>
   <!-- Exchange rate label -->
   <string name="DefaultCurrency.rateLabel">Обменный курс</string>
   <!-- Email unavailable alert title -->
@@ -235,7 +235,7 @@
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">Управление кошельком</string>
   <!-- Buy bitcoin title -->
-  <string name="MenuButton.buy">Купить Litecoin</string>
+  <string name="MenuButton.buy">Купить Garlicoin</string>
   <!-- Menu button title -->
   <string name="MenuButton.lock">Заблокировать кошелек</string>
   <!-- Menu button title -->
@@ -471,7 +471,7 @@
   <!-- Send screen title (as in "this is the screen for sending money") -->
   <string name="Send.title">Отправить</string>
   <!-- Send money to label -->
-  <string name="Send.toLabel">Введите адрес Litecoin</string>
+  <string name="Send.toLabel">Введите адрес Garlicoin</string>
 
   <!-- Enter to match domain name to LTC Address -->
   <string name="Send.UnstoppableDomains.placeholder">Введите домен .crypto или .zil</string>
@@ -748,7 +748,7 @@
   <string name="WritePaperPhrase.previous">Назад</string>
   <!-- 1 of 3 -->
   <string name="WritePaperPhrase.step">%1$d из %2$d</string>
-  <string name="Donate.title">Нажмите, чтобы пожертвовать в фонд Litecoin (%1$s)</string>
+  <string name="Donate.title">Нажмите, чтобы пожертвовать в фонд Garlicoin (%1$s)</string>
   <string name="Donate.title.confirmation">Подтвердите Пожертвование</string>
   <string name="Confirmation.processingAndDonationTime">Время обработки: обработка этих транзакций займет  %1$s минут.</string>
   <string name="Confirmation.donateLabel">Сумма пожертвования:</string>
@@ -760,8 +760,8 @@
   <string name="FeeSelector.luxuryTime">2.5 - 5+ минут</string>
   <string name="BottomNavItem.History.title">ИСТОРИЯ</string>
   <string name="BottomNavItem.Card.title">КАРТА</string>
-  <string name="LitecoinCard.cardBalance">Баланс карты</string>
-  <string name="LitecoinCard.logout">Выйти</string>
+  <string name="GarlicoinCard.cardBalance">Баланс карты</string>
+  <string name="GarlicoinCard.logout">Выйти</string>
   <string name="Register.Hint.mobileNumber">Номер мобильного</string>
   <string name="Register.Hint.zipPostalCode">Почтовый индекс</string>
   <string name="Register.Hint.country">Страна</string>
@@ -771,13 +771,13 @@
   <string name="Register.Hint.confirmPassword">Подтвердите Пароль</string>
   <string name="Register.Hint.lastName">фамилия</string>
   <string name="Register.Hint.firstName">Имя</string>
-  <string name="Register.registerCardPhrase">Зарегистрируйтесь для получения карты Litecoin</string>
+  <string name="Register.registerCardPhrase">Зарегистрируйтесь для получения карты Garlicoin</string>
   <string name="Login.Dialog.forgotPassword.reset">Сброс пароля</string>
   <string name="Login.register">регистр</string>
   <string name="Login.login">Авторизоваться</string>
   <string name="Login.forgotPassword">Забыли пароль?</string>
   <string name="Login.Hint.password">пароль</string>
-  <string name="Login.Dialog.forgotPasswordMessage">Посетите https://litecoin.dashboard.getblockcard.com/password/forgot, чтобы сбросить пароль.</string>
+  <string name="Login.Dialog.forgotPasswordMessage">Посетите https://garlicoin.dashboard.getblockcard.com/password/forgot, чтобы сбросить пароль.</string>
   <string name="Login.Dialog.forgotPassword.visit">Посещение</string>
   <string name="required">Обязательное поле</string>
   <string name="wrong_email_format">Неверный адрес электронной почты</string>
@@ -787,10 +787,10 @@
   <string name="mismatch_password">Несоответствующий пароль</string>
   <string name="Error.emailNotVerified">Вам необходимо подтвердить свой адрес электронной почты, прежде чем вы сможете войти в систему.</string>
   <string name="Error.wrong2faTokenProvided">Предоставлен неверный 2FA</string>
-  <string name="BuyCenter.simplex.FinancialDetails">• Получить Litecoin за 5 минут! \\n • Купить Litecoin с помощью кредитной карты \\n • Паспорт или удостоверение личности штата</string>
+  <string name="BuyCenter.simplex.FinancialDetails">• Получить Garlicoin за 5 минут! \\n • Купить Garlicoin с помощью кредитной карты \\n • Паспорт или удостоверение личности штата</string>
   <string name="ManageWallet.balance">Баланс</string>
-  <string name="LitecoinCard.Disclaimer.bullets">- Новая регистрация\\n- Авторизация (существующая учетная запись)\\n- Баланс не отображается\\n- Без передачи\\n- Только США</string>
-  <string name="LitecoinCard.Disclaimer.description">Litecoin Card в настоящее время имеет ограниченную функциональность в Litewallet.</string>
-  <string name="LitecoinCard.Disclaimer.referral">Посетите litecoin.getblockcard.com для полного доступа</string>
-  <string name="LitecoinCard.Disclaimer.title">Бета-версия карты Litecoin</string>
+  <string name="GarlicoinCard.Disclaimer.bullets">- Новая регистрация\\n- Авторизация (существующая учетная запись)\\n- Баланс не отображается\\n- Без передачи\\n- Только США</string>
+  <string name="GarlicoinCard.Disclaimer.description">Garlicoin Card в настоящее время имеет ограниченную функциональность в Garlicwallet.</string>
+  <string name="GarlicoinCard.Disclaimer.referral">Посетите garlicoin.getblockcard.com для полного доступа</string>
+  <string name="GarlicoinCard.Disclaimer.title">Бета-версия карты Garlicoin</string>
 </resources>

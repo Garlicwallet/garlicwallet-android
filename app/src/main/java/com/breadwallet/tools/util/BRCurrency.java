@@ -42,7 +42,6 @@ import static com.breadwallet.tools.util.BRConstants.CURRENT_UNIT_PHOTONS;
 public class BRCurrency {
     public static final String TAG = BRCurrency.class.getName();
 
-
     // amount is in currency or BTC (bits, mBTC or BTC)
     public static String getFormattedCurrencyString(Context app, String isoCurrencyCode, BigDecimal amount) {
         // This formats currency values as the user expects to read them (default locale).
@@ -65,13 +64,9 @@ public class BRCurrency {
         }
         decimalFormatSymbols.setCurrencySymbol(symbol);
         currencyFormat.setGroupingUsed(true);
-        boolean currentUnitGarlicoins = BRSharedPrefs.getCurrencyUnit(app) == BRConstants.CURRENT_UNIT_GARLICOINS;
-        int fractionalDigits = 2;
-        if(currentUnitGarlicoins){
-            fractionalDigits = 8;
-        }else if(amount.compareTo(BigDecimal.ONE) < 0){
-            fractionalDigits = 4;
-        }
+        amount = amount.stripTrailingZeros();
+        int fractionalDigits = amount.scale();
+
         currencyFormat.setDecimalFormatSymbols(decimalFormatSymbols);
         currencyFormat.setNegativePrefix(decimalFormatSymbols.getCurrencySymbol() + "-");
         currencyFormat.setNegativeSuffix("");

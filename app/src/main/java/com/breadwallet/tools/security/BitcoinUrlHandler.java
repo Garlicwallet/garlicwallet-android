@@ -89,7 +89,7 @@ public class BitcoinUrlHandler {
         if (requestObject.r != null) {
             return tryPaymentRequest(requestObject);
         } else if (requestObject.address != null) {
-            return tryLitecoinURL(url, app);
+            return tryGarlicoinURL(url, app);
         } else {
             if (app != null) {
                 BRDialog.showCustomDialog(app, app.getString(R.string.JailbreakWarnings_title),
@@ -120,11 +120,11 @@ public class BitcoinUrlHandler {
 
         String tmp = str.trim().replaceAll("\n", "").replaceAll(" ", "%20");
 
-        if (!tmp.startsWith("litecoin://")) {
-            if (!tmp.startsWith("litecoin:"))
-                tmp = "litecoin://".concat(tmp);
+        if (!tmp.startsWith("garlicoin://")) {
+            if (!tmp.startsWith("garlicoin:"))
+                tmp = "garlicoin://".concat(tmp);
             else
-                tmp = tmp.replace("litecoin:", "litecoin://");
+                tmp = tmp.replace("garlicoin:", "garlicoin://");
         }
         URI uri;
         try {
@@ -183,7 +183,7 @@ public class BitcoinUrlHandler {
         return true;
     }
 
-    private static boolean tryLitecoinURL(final String url, final FragmentActivity app) {
+    private static boolean tryGarlicoinURL(final String url, final FragmentActivity app) {
         RequestObject requestObject = getRequestFromString(url);
         if (requestObject == null || requestObject.address == null || requestObject.address.isEmpty())
             return false;
@@ -204,7 +204,7 @@ public class BitcoinUrlHandler {
                 BRAnimator.killAllFragments(app);
                 BRSender.getInstance().sendTransaction(app, new PaymentItem(addresses, null, new BigDecimal(amount).longValue(), null, true));
             } else {
-                Timber.e(new NullPointerException("tryLitecoinURL, app is null!"));
+                Timber.e(new NullPointerException("tryGarlicoinURL, app is null!"));
             }
         }
 

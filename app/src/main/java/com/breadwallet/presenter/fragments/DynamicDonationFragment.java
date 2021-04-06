@@ -156,7 +156,7 @@ public class DynamicDonationFragment extends Fragment {
 
         setFeeToRegular();
 
-        currentBalance = BRSharedPrefs.getCatchedBalance(getContext());
+        currentBalance = BRSharedPrefs.getCachedBalance(getContext());
 
         updateDonationValues(BRConstants.DONATION_AMOUNT);
     }

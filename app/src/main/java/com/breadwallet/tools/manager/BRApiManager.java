@@ -16,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -87,9 +88,9 @@ public class BRApiManager {
                     CurrencyEntity tmp = new CurrencyEntity();
                     try {
                         JSONObject tmpObj = (JSONObject) arr.get(i);
-                        tmp.name = tmpObj.getString("code");
+                        tmp.name = tmpObj.getString("name");
                         tmp.code = tmpObj.getString("code");
-                        tmp.rate = (float) tmpObj.getDouble("n");
+                        tmp.rate = new BigDecimal(tmpObj.getString("n"));
                         String selectedISO = BRSharedPrefs.getIso(context);
                         if (tmp.code.equalsIgnoreCase(selectedISO)) {
                             BRSharedPrefs.putIso(context, tmp.code);

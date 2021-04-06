@@ -9,8 +9,6 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -32,9 +30,7 @@ import com.breadwallet.R;
 import com.breadwallet.presenter.activities.util.BRActivity;
 import com.breadwallet.presenter.customviews.BRNotificationBar;
 import com.breadwallet.presenter.entities.CurrencyEntity;
-import com.breadwallet.presenter.fragments.BuyTabFragment;
 import com.breadwallet.presenter.history.HistoryFragment;
-import com.breadwallet.presenter.transfer.TransferFragment;
 import com.breadwallet.tools.animation.BRAnimator;
 import com.breadwallet.tools.animation.TextSizeTransition;
 import com.breadwallet.tools.manager.BRSharedPrefs;
@@ -52,7 +48,6 @@ import com.breadwallet.tools.util.Utils;
 import com.breadwallet.wallet.BRPeerManager;
 import com.breadwallet.wallet.BRWalletManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.platform.APIClient;
 
 import java.math.BigDecimal;
@@ -178,7 +173,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         Uri data = intent.getData();
         if (data == null) return;
         String scheme = data.getScheme();
-        if (scheme != null && (scheme.startsWith("litecoin") || scheme.startsWith("bitid"))) {
+        if (scheme != null && (scheme.startsWith("garlicoin") || scheme.startsWith("bitid"))) {
             String str = intent.getDataString();
             BitcoinUrlHandler.processRequest(this, str);
         }
@@ -431,21 +426,17 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 Thread.currentThread().setName(Thread.currentThread().getName() + ":updateUI");
                 //sleep a little in order to make sure all the commits are finished (like SharePreferences commits)
                 String iso = BRSharedPrefs.getIso(BreadActivity.this);
-                Log.i("TESTING", "CURRENCY = " + iso);
+                CurrencyEntity selectedCurrency = CurrencyDataSource.getInstance(BreadActivity.this).getCurrencyByIso(iso);
                 String formattedCurrency = null;
-                CurrencyEntity currency = CurrencyDataSource.getInstance(BreadActivity.this).getCurrencyByIso(iso);
-                if (currency != null) {
-                    final BigDecimal roundedPriceAmount = new BigDecimal(currency.rate).multiply(new BigDecimal(100))
-                            .divide(new BigDecimal(100), 2, BRConstants.ROUNDING_MODE);
-                    formattedCurrency = BRCurrency.getFormattedCurrencyString(BreadActivity.this, iso, roundedPriceAmount);
+                if (selectedCurrency != null) {
+                    formattedCurrency = BRCurrency.getFormattedCurrencyString(BreadActivity.this, iso, selectedCurrency.rate);
                 } else {
                     Timber.w("The currency related to %s is NULL", iso);
                 }
-
                 final String grlcPrice = formattedCurrency;
 
                 //current amount in cloves
-                final BigDecimal amount = new BigDecimal(BRSharedPrefs.getCatchedBalance(BreadActivity.this));
+                final BigDecimal amount = new BigDecimal(BRSharedPrefs.getCachedBalance(BreadActivity.this));
 
                 //amount in GRLC units
                 BigDecimal btcAmount = BRExchange.getBitcoinForSatoshis(BreadActivity.this, amount);
@@ -454,17 +445,14 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 //amount in currency units
                 final BigDecimal curAmount = BRExchange.getAmountFromSatoshis(BreadActivity.this, iso, amount);
                 final String formattedCurAmount = BRCurrency.getFormattedCurrencyString(BreadActivity.this, iso, curAmount);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        primaryPrice.setText(formattedBTCAmount);
-                        secondaryPrice.setText(String.format("%s", formattedCurAmount));
-                        if (grlcPrice != null) {
-                            grlcPriceLbl.setText(grlcPrice);
-                            SimpleDateFormat df = (SimpleDateFormat) DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT);
-                            String pattern = df.toPattern().replaceAll("\\W?[Yy]+\\W?", " ");
-                            grlcPriceDateLbl.setText("as of " + android.text.format.DateFormat.format(pattern, new Date()));
-                        }
+                runOnUiThread(() -> {
+                    primaryPrice.setText(formattedBTCAmount);
+                    secondaryPrice.setText(String.format("%s", formattedCurAmount));
+                    if (grlcPrice != null) {
+                        grlcPriceLbl.setText(grlcPrice);
+                        SimpleDateFormat df = (SimpleDateFormat) DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT);
+                        String pattern = df.toPattern().replaceAll("\\W?[Yy]+\\W?", " ");
+                        grlcPriceDateLbl.setText("as of " + android.text.format.DateFormat.format(pattern, new Date()));
                     }
                 });
             }

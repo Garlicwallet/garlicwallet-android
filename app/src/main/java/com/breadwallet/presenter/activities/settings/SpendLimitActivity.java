@@ -169,7 +169,7 @@ public class SpendLimitActivity extends BRActivity {
                 convertView = inflater.inflate(layoutResourceId, parent, false);
             }
             // get the TextView and then set the text (item name) and tag (item ID) values
-            TextView textViewItem = convertView.findViewById(R.id.currency_item_text);
+            TextView textViewItem = convertView.findViewById(R.id.currency_item_name);
             Integer item = getItem(position);
             BigDecimal curAmount = BRExchange.getAmountFromSatoshis(app, BRSharedPrefs.getIso(app), new BigDecimal(item));
             BigDecimal btcAmount = BRExchange.getBitcoinForSatoshis(app, new BigDecimal(item));

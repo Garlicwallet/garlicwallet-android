@@ -75,7 +75,7 @@ public class BRConstants {
     public static final String ECONOMY_FEE_KB_PREFS = "EconomyFeeKb";
     public static final String LITTLE_CIRCLE = "\u2022";
 
-    public static String SUPPORT_EMAIL = "support@litecoinfoundation.zendesk.com";
+    public static String SUPPORT_EMAIL = "support@garlicoinfoundation.zendesk.com";
 
     public static final int ONE_BITCOIN = 100000000;
 
@@ -111,30 +111,30 @@ public class BRConstants {
     /**
      * Donation
      */
-    public static final Pair[] DONATION_ADDRESSES = new Pair[]
+    public static final Pair[] DONATION_ADDRESSES = new Pair[] //TODO
             {
                     Pair.create("Litewallet Hardware Fundraiser", "MJ4W7NZya4SzE7R6xpEVdamGCimaQYPiWu"),
-                    Pair.create("Litecoin Foundation", "MVZj7gBRwcVpa9AAWdJm8A3HqTst112eJe")
+                    Pair.create("Garlicoin Foundation", "MVZj7gBRwcVpa9AAWdJm8A3HqTst112eJe")
             };
     public static final long DONATION_AMOUNT = 1_800_000;
 
     /**
      * Support Center article ids.
      */
-    public static final String receive = "receive-litecoin";
-    public static final String send = "send-litecoin";
+    public static final String receive = "receive-garlicoin";
+    public static final String send = "send-garlicoin";
     public static final String loopBug = "android-loop-bug";
 
     public static final String TWITTER_LINK = "https://twitter.com/Litewallet_App";
     public static final String REDDIT_LINK = "https://www.reddit.com/r/garlicoin";
     public static final String WEB_LINK = "https://lite-wallet.org";
     public static final String TOS_LINK = "https://lite-wallet.org/policy";
-    public static String CUSTOMER_SUPPORT_LINK = "https://litecoinfoundation.zendesk.com";
+    public static String CUSTOMER_SUPPORT_LINK = "https://garlicoinfoundation.zendesk.com";
 
     public static final String BLOCK_EXPLORER_BASE_URL = BuildConfig.LITECOIN_TESTNET ? "https://testnet.litecore.io/tx/" : "https://insight.litecore.io/tx/";
 
 
-    public static final String RESET_CARD_PWD_LINK = "https://litecoin.dashboard.getblockcard.com/password/forgot";
+    public static final String RESET_CARD_PWD_LINK = "https://garlicoin.dashboard.getblockcard.com/password/forgot";
 
     private BRConstants() {
     }

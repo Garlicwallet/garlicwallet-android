@@ -123,7 +123,7 @@ public class APIClient {
     private Context ctx;
 
     public enum FeatureFlags {
-        BUY_BITCOIN("buy-litecoin"),
+        BUY_BITCOIN("buy-garlicoin"),
         EARLY_ACCESS("early-access");
 
         private final String text;

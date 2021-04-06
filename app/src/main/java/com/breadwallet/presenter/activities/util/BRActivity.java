@@ -136,7 +136,7 @@ public class BRActivity extends FragmentActivity {
                             else if (BRBitId.isBitId(result))
                                 BRBitId.signBitID(BRActivity.this, result, null);
                             else
-                                Timber.i("onActivityResult: not litecoin address NOR bitID");
+                                Timber.i("onActivityResult: not garlicoin address NOR bitID");
                         }
                     }, 500);
 

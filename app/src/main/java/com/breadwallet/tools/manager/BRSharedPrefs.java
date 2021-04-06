@@ -170,7 +170,7 @@ public class BRSharedPrefs {
         editor.apply();
     }
 
-    public static long getCatchedBalance(Context context) {
+    public static long getCachedBalance(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
         return prefs.getLong("balance", 0);
     }
@@ -252,28 +252,28 @@ public class BRSharedPrefs {
         editor.apply();
     }
 
-    //if the user prefers all in litecoin units, not other currencies
+    //if the user prefers all in garlicoin units, not other currencies
     public static boolean getPreferredGRLC(Context activity) {
         SharedPreferences prefs = activity.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
-        return prefs.getBoolean("priceSetToLitecoin", true);
+        return prefs.getBoolean("priceSetToGarlicoin", true);
     }
 
-    //if the user prefers all in litecoin units, not other currencies
+    //if the user prefers all in garlicoin units, not other currencies
     public static void putPreferredGRLC(Context activity, boolean b) {
         Timber.d("putPreferredGRLC: %s", b);
         SharedPreferences prefs = activity.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("priceSetToLitecoin", b);
+        editor.putBoolean("priceSetToGarlicoin", b);
         editor.apply();
     }
 
-    //if the user prefers all in litecoin units, not other currencies
+    //if the user prefers all in garlicoin units, not other currencies
     public static boolean getUseFingerprint(Context activity) {
         SharedPreferences prefs = activity.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
         return prefs.getBoolean("useFingerprint", false);
     }
 
-    //if the user prefers all in litecoin units, not other currencies
+    //if the user prefers all in garlicoin units, not other currencies
     public static void putUseFingerprint(Context activity, boolean use) {
         SharedPreferences prefs = activity.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
@@ -434,17 +434,17 @@ public class BRSharedPrefs {
         editor.apply();
     }
 
-    public static void putLitecoinCardId(Context context, String id) {
+    public static void putGarlicoinCardId(Context context, String id) {
         context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE)
                 .edit().putString(TERNIO_USER_ID, id).apply();
     }
 
-    public static String getLitecoinCardId(Context context) {
+    public static String getGarlicoinCardId(Context context) {
         return context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE)
                 .getString(TERNIO_USER_ID, null);
     }
 
-    public static void logoutFromLitecoinCard(Context context) {
+    public static void logoutFromGarlicoinCard(Context context) {
         context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE)
                 .edit().remove(TERNIO_USER_ID).apply();
     }

@@ -5,7 +5,7 @@
   <!-- About screen blog label -->
   <string name="About.blog">Blogg</string>
   <!-- About screen footer -->
-  <string name="About.footer">Tillverkad av Litewallet Team av Litecoin Foundation\n%1$s</string>
+  <string name="About.footer">Tillverkad av Garlicwallet Team av Garlicoin Foundation\n%1$s</string>
   <!-- Privay Policy button label -->
   <string name="About.privacy">Sekretesspolicy</string>
   <!-- About screen reddit label -->
@@ -89,7 +89,7 @@
   <!-- Approve button label -->
   <string name="BitID.approve">Godkänn</string>
   <!-- <sitename> is requesting authentication using your bitcoin wallet -->
-  <string name="BitID.authenticationRequest">%1$s begär autentisering med hjälp av din Litecoin-plånbok</string>
+  <string name="BitID.authenticationRequest">%1$s begär autentisering med hjälp av din Garlicoin-plånbok</string>
   <!-- Deny button label -->
   <string name="BitID.deny">Avslå</string>
   <!-- BitID error alert title -->
@@ -140,8 +140,8 @@
   <string name="ConfirmPaperPhrase.label">Ange följande ord från din ordnyckel, för att vara säker på att allt skrevs korrekt.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">Ord #%1$s</string>
-  <!-- Litecoin denomination picker label -->
-  <string name="DefaultCurrency.litecoinLabel">Litecoin visningsenhet</string>
+  <!-- Garlicoin denomination picker label -->
+  <string name="DefaultCurrency.garlicoinLabel">Garlicoin visningsenhet</string>
   <!-- Exchange rate label -->
   <string name="DefaultCurrency.rateLabel">Växelkurs</string>
   <!-- Email unavailable alert title -->
@@ -171,7 +171,7 @@
   <!-- Checking private key balance progress view text -->
   <string name="Import.checking">Kontrollerar privat nyckelsaldo...</string>
   <!-- Sweep private key confirmation message -->
-  <string name="Import.confirm">Skicka %1$s från denna privata nyckel till din plånbok? Litecoins nätverk tar en avgift på %2$s.</string>
+  <string name="Import.confirm">Skicka %1$s från denna privata nyckel till din plånbok? Garlicoins nätverk tar en avgift på %2$s.</string>
   <!-- Duplicate key error message -->
   <string name="Import.Error.duplicate">Denna privata nyckel finns redan i din plånbok.</string>
   <!-- empty private key error message -->
@@ -215,9 +215,9 @@
   <!-- Ignore jailbreak warning button -->
   <string name="JailbreakWarnings.ignore">Ignorera</string>
   <!-- Jailbreak warning message -->
-  <string name="JailbreakWarnings.messageWithBalance">ENHETENS SÄKERHET ÄR ÄVENTYRAD\nEn \"intrångs\"-app kan få tillgång till Loafs nyckeldata och stjäla dina Litecoin! Töm denna plånbok direkt och återupprätta den på en säker enhet.</string>
+  <string name="JailbreakWarnings.messageWithBalance">ENHETENS SÄKERHET ÄR ÄVENTYRAD\nEn \"intrångs\"-app kan få tillgång till Loafs nyckeldata och stjäla dina Garlicoin! Töm denna plånbok direkt och återupprätta den på en säker enhet.</string>
   <!-- Jailbreak warning message -->
-  <string name="JailbreakWarnings.messageWithoutBalance">ENHETENS SÄKERHET ÄR ÄVENTYRAD\nEn \"intrångs\"-app kan få tillgång till Loafs nyckeldata och stjäla dina Litecoin! Använd Loaf endast på en säker enhet.</string>
+  <string name="JailbreakWarnings.messageWithoutBalance">ENHETENS SÄKERHET ÄR ÄVENTYRAD\nEn \"intrångs\"-app kan få tillgång till Loafs nyckeldata och stjäla dina Garlicoin! Använd Loaf endast på en säker enhet.</string>
   <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">VARNING</string>
   <!-- Wipe wallet button -->
@@ -235,7 +235,7 @@
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">Hantera plånbok</string>
   <!-- Buy bitcoin title -->
-  <string name="MenuButton.buy">Köp Litecoin</string>
+  <string name="MenuButton.buy">Köp Garlicoin</string>
   <!-- Menu button title -->
   <string name="MenuButton.lock">Lås plånbok</string>
   <!-- Menu button title -->
@@ -267,7 +267,7 @@
   <!-- Node status label -->
   <string name="NodeSelector.statusLabel">Nodens anslutningsstatus</string>
   <!-- Node Selector view title -->
-  <string name="NodeSelector.title">Litecoin-noder</string>
+  <string name="NodeSelector.title">Garlicoin-noder</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">Felaktig utbetalningsbegäran</string>
   <!-- Error opening payment protocol file message -->
@@ -279,9 +279,9 @@
   <!-- Payment too small alert title -->
   <string name="PaymentProtocol.Errors.smallOutputError">Kunde inte göra utbetalning</string>
   <!-- Amount too small error message -->
-  <string name="PaymentProtocol.Errors.smallPayment">Utbetalning av Litecoin får inte vara lägre än %1$s.</string>
+  <string name="PaymentProtocol.Errors.smallPayment">Utbetalning av Garlicoin får inte vara lägre än %1$s.</string>
   <!-- Output too small error message. -->
-  <string name="PaymentProtocol.Errors.smallTransaction">Utbetalningstransaktioner av Litecoin får inte vara lägre än %1$s.</string>
+  <string name="PaymentProtocol.Errors.smallTransaction">Utbetalningstransaktioner av Garlicoin får inte vara lägre än %1$s.</string>
   <!-- Unsupported signature type payment protocol error message -->
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">signaturtypen saknar stöd</string>
   <!-- Untrusted certificate payment protocol error message -->
@@ -379,7 +379,7 @@
   <!-- extimated time -->
   <string name="ReScan.body1">20-45 minuter</string>
   <!-- Syncing explanation -->
-  <string name="ReScan.body2">Om en transaktion visar sig som klar i Litecoins nätverk men inte i Loaf.</string>
+  <string name="ReScan.body2">Om en transaktion visar sig som klar i Garlicoins nätverk men inte i Loaf.</string>
   <!-- Syncing explanation -->
   <string name="ReScan.body3">Du får gång på gång ett meddelande som säger att din transaktion avvisades.</string>
   <!-- Start Sync button label -->
@@ -405,7 +405,7 @@
   <!-- Security Center Info -->
   <string name="SecurityCenter.info">Aktivera alla säkerhetsfunktioner för maximal säkerhet.</string>
   <!-- Paper Key button description -->
-  <string name="SecurityCenter.paperKeyDescription">Det enda sättet att komma åt dina Litecoin om du förlorar eller uppgraderar din telefon.</string>
+  <string name="SecurityCenter.paperKeyDescription">Det enda sättet att komma åt dina Garlicoin om du förlorar eller uppgraderar din telefon.</string>
   <!-- Paper Key button title -->
   <string name="SecurityCenter.paperKeyTitle">Ordnyckel</string>
   <!-- PIN button description -->
@@ -445,9 +445,9 @@
   <!-- Payee identity not certified alert title. -->
   <string name="Send.identityNotCertified">Betalningsmottagaren är inte certifierad.</string>
   <!-- Invalid address alert message -->
-  <string name="Send.invalidAddressMessage">Mottagaradressen är inte en giltig Litecoin-adress.</string>
+  <string name="Send.invalidAddressMessage">Mottagaradressen är inte en giltig Garlicoin-adress.</string>
   <!-- Invalid address on pasteboard message -->
-  <string name="Send.invalidAddressOnPasteboard">Urklipp innehåller inte en giltig Litecoinadress.</string>
+  <string name="Send.invalidAddressOnPasteboard">Urklipp innehåller inte en giltig Garlicoinadress.</string>
   <!-- Invalid address alert title -->
   <string name="Send.invalidAddressTitle">Ogiltig adress</string>
   <!-- Is rescanning error message -->
@@ -471,7 +471,7 @@
   <!-- Send screen title (as in "this is the screen for sending money") -->
   <string name="Send.title">Skicka</string>
   <!-- Send money to label -->
-  <string name="Send.toLabel">Ange en Litecoin-adress</string>
+  <string name="Send.toLabel">Ange en Garlicoin-adress</string>
 
   <!-- Enter to match domain name to LTC Address -->
   <string name="Send.UnstoppableDomains.placeholder">Ange en .crypto- eller .zil-domän</string>
@@ -483,7 +483,7 @@
   <string name="Send.UnstoppableDomains.domainResolved">Din adress har lösts!</string>
 
   <!-- Adress already used alert message - first part -->
-  <string name="Send.UsedAddress.firstLine">Litecoin-adresser är avsedda för engångsanvändning.</string>
+  <string name="Send.UsedAddress.firstLine">Garlicoin-adresser är avsedda för engångsanvändning.</string>
   <!-- Adress already used alert message - second part -->
   <string name="Send.UsedAddress.secondLIne">Återanvändning minskar sekretessen både för dig och mottagaren och kan sluta i förlust om mottagaren inte direkt kontrollerar adressen.</string>
   <!-- Adress already used alert title -->
@@ -535,7 +535,7 @@
   <!-- Argument is date -->
   <string name="StartPaperPhrase.date">Senast skrev du ner din ordnyckel på %1$s</string>
   <!-- Start view message -->
-  <string name="StartViewController.message">Det säkraste och tryggaste sättet att använda Litecoin.</string>
+  <string name="StartViewController.message">Det säkraste och tryggaste sättet att använda Garlicoin.</string>
   <!-- Syncing view connectiong state header text -->
   <string name="SyncingView.connecting">Ansluter</string>
   <!-- Syncing view header text -->
@@ -645,7 +645,7 @@
   <!-- "Sent [$5] to [address]" => This is the "to [address]" part. -->
   <string name="TransactionDetails.to">till %1$s</string>
   <!-- Transaction ID header -->
-  <string name="TransactionDetails.txHashHeader">Litecoin transaktions-ID</string>
+  <string name="TransactionDetails.txHashHeader">Garlicoin transaktions-ID</string>
   <!-- (this transaction was) Received at this address: -->
   <string name="TransactionDirection.address">Togs emot på den här adressen</string>
   <!-- (this transaction was) Sent to this address: -->
@@ -673,7 +673,7 @@
   <!-- Wallet unlocked message -->
   <string name="UnlockScreen.unlocked">Plånbok upplåst</string>
   <!-- Update PIN caption text -->
-  <string name="UpdatePin.caption">Kom ihåg PIN-koden. Om du glömmer den, kommer du inte åt dina Litecoin.</string>
+  <string name="UpdatePin.caption">Kom ihåg PIN-koden. Om du glömmer den, kommer du inte åt dina Garlicoin.</string>
   <!-- PIN creation info. -->
   <string name="UpdatePin.createInstruction">Din PIN-kod används för att låsa upp ditt Loaf och skicka pengar</string>
   <!-- Update PIN title -->
@@ -748,7 +748,7 @@
   <string name="WritePaperPhrase.previous">Föregående</string>
   <!-- 1 of 3 -->
   <string name="WritePaperPhrase.step">%1$d av %2$d</string>
-  <string name="Donate.title">Tryck för att donera till Litecoin Foundation (%1$s)</string>
+  <string name="Donate.title">Tryck för att donera till Garlicoin Foundation (%1$s)</string>
   <string name="Donate.title.confirmation">Bekräfta donation</string>
   <string name="Confirmation.processingAndDonationTime">Bearbetningstid: Dessa transaktioner tar %1$s minuter att behandla.</string>
   <string name="Confirmation.donateLabel">Belopp att donera:</string>
@@ -760,8 +760,8 @@
   <string name="FeeSelector.luxuryTime">2.5 - 5+ minuter</string>
   <string name="BottomNavItem.History.title">HISTORIA</string>
   <string name="BottomNavItem.Card.title">KORT</string>
-  <string name="LitecoinCard.cardBalance">Kortbalans</string>
-  <string name="LitecoinCard.logout">Logga ut</string>
+  <string name="GarlicoinCard.cardBalance">Kortbalans</string>
+  <string name="GarlicoinCard.logout">Logga ut</string>
   <string name="Register.Hint.mobileNumber">Mobilnummer</string>
   <string name="Register.Hint.zipPostalCode">Postnummer</string>
   <string name="Register.Hint.country">Land</string>
@@ -771,13 +771,13 @@
   <string name="Register.Hint.confirmPassword">Bekräfta lösenord</string>
   <string name="Register.Hint.lastName">Efternamn</string>
   <string name="Register.Hint.firstName">Förnamn</string>
-  <string name="Register.registerCardPhrase">Registrera dig för Litecoin-kort</string>
+  <string name="Register.registerCardPhrase">Registrera dig för Garlicoin-kort</string>
   <string name="Login.Dialog.forgotPassword.reset">Återställ lösenord</string>
   <string name="Login.register">Registrera</string>
   <string name="Login.login">Logga in</string>
   <string name="Login.forgotPassword">Glömt ditt lösenord?</string>
   <string name="Login.Hint.password">Lösenord</string>
-  <string name="Login.Dialog.forgotPasswordMessage">Besök https://litecoin.dashboard.getblockcard.com/password/forgot för att återställa ditt lösenord.</string>
+  <string name="Login.Dialog.forgotPasswordMessage">Besök https://garlicoin.dashboard.getblockcard.com/password/forgot för att återställa ditt lösenord.</string>
   <string name="Login.Dialog.forgotPassword.visit">Besök</string>
   <string name="required">Obligatoriskt fält</string>
   <string name="wrong_email_format">Ogiltig e-postadress</string>
@@ -787,10 +787,10 @@
   <string name="mismatch_password">Fel lösenord</string>
   <string name="Error.emailNotVerified">Du måste verifiera din e-postadress innan du kan logga in.</string>
   <string name="Error.wrong2faTokenProvided">Fel 2FA tillhandahålls</string>
-  <string name="BuyCenter.simplex.FinancialDetails">• Skaffa Litecoin inom 5 minuter! \\n • Köp Litecoin via kreditkort \\n • Pass eller statligt ID</string>
+  <string name="BuyCenter.simplex.FinancialDetails">• Skaffa Garlicoin inom 5 minuter! \\n • Köp Garlicoin via kreditkort \\n • Pass eller statligt ID</string>
   <string name="ManageWallet.balance">Balans</string>
-  <string name="LitecoinCard.Disclaimer.bullets">- Ny registrering\\n- Inloggning (befintligt konto)\\n- Ingen balans visas\\n- Ingen överföring\\n- Endast USA</string>
-  <string name="LitecoinCard.Disclaimer.description">Litecoin Card har för närvarande begränsad funktionalitet i Litewallet.</string>
-  <string name="LitecoinCard.Disclaimer.referral">Besök litecoin.getblockcard.com för fullständig åtkomst</string>
-  <string name="LitecoinCard.Disclaimer.title">Litecoin-kort Beta</string>
+  <string name="GarlicoinCard.Disclaimer.bullets">- Ny registrering\\n- Inloggning (befintligt konto)\\n- Ingen balans visas\\n- Ingen överföring\\n- Endast USA</string>
+  <string name="GarlicoinCard.Disclaimer.description">Garlicoin Card har för närvarande begränsad funktionalitet i Garlicwallet.</string>
+  <string name="GarlicoinCard.Disclaimer.referral">Besök garlicoin.getblockcard.com för fullständig åtkomst</string>
+  <string name="GarlicoinCard.Disclaimer.title">Garlicoin-kort Beta</string>
 </resources>

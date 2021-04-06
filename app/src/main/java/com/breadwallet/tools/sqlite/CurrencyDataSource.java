@@ -75,7 +75,7 @@ public class CurrencyDataSource implements BRDataSourceInterface {
                 ContentValues values = new ContentValues();
                 values.put(BRSQLiteHelper.CURRENCY_CODE, c.code);
                 values.put(BRSQLiteHelper.CURRENCY_NAME, c.name);
-                values.put(BRSQLiteHelper.CURRENCY_RATE, c.rate);
+                values.put(BRSQLiteHelper.CURRENCY_RATE, c.rate.toString());
                 database.insertWithOnConflict(BRSQLiteHelper.CURRENCY_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
             }
 
@@ -135,7 +135,7 @@ public class CurrencyDataSource implements BRDataSourceInterface {
     }
 
     private CurrencyEntity cursorToCurrency(Cursor cursor) {
-        return new CurrencyEntity(cursor.getString(0), cursor.getString(1), cursor.getFloat(2));
+        return new CurrencyEntity(cursor.getString(0), cursor.getString(1), cursor.getString(2));
     }
 
     @Override
