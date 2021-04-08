@@ -43,7 +43,7 @@ android {
 
     defaultConfig {
         testInstrumentationRunner = 'androidx.test.runner.AndroidJUnitRunner'
-        applicationId = 'com.loafwallet'
+        applicationId = 'com.garlicwallet'
         minSdkVersion 23
         targetSdkVersion 29
         versionCode 637
@@ -86,9 +86,9 @@ android {
     flavorDimensions "mode"
     productFlavors {
         loaf {
-            applicationId "com.loafwallet"
+            applicationId "com.garlicwallet"
             dimension "mode"
-            resValue "string", "app_name", "Litewallet"
+            resValue "string", "app_name", "Garlicwallet"
             buildConfigField "boolean", "LITECOIN_TESTNET", "false"
 
             externalNativeBuild {
@@ -103,9 +103,9 @@ android {
         }
 
         loafTestnet {
-            applicationId "com.loafwallet.testnet"
+            applicationId "com.garlicwallet.testnet"
             dimension "mode"
-            resValue "string", "app_name", "Litewallet-testnet"
+            resValue "string", "app_name", "Garlicwallet-testnet"
             buildConfigField "boolean", "LITECOIN_TESTNET", "true"
 
             externalNativeBuild {
