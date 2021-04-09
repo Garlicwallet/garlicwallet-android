@@ -78,4 +78,4 @@ crash.txt
 /fastlane/
 fastlane/
 
-google-services.json
+app/google-services.json

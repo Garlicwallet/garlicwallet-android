@@ -15,6 +15,7 @@ import com.breadwallet.tools.listeners.SyncReceiver;
 import com.breadwallet.tools.manager.AnalyticsManager;
 import com.breadwallet.tools.util.BRConstants;
 import com.breadwallet.tools.util.Utils;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.ArrayList;
@@ -66,6 +67,7 @@ public class BreadApp extends Application {
         super.onCreate();
 
         DaggerAppComponent.builder().build().inject(this);
+        FirebaseApp.initializeApp(this);
 
         boolean enableCrashlytics = true;
         if (Utils.isEmulatorOrDebug(this)) {
