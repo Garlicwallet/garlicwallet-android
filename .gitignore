@@ -77,3 +77,5 @@ crash.txt
 /app/src/main/java/com/breadwallet/presenter/fragments/FragmentBreadSignal.java
 /fastlane/
 fastlane/
+
+google-services.json

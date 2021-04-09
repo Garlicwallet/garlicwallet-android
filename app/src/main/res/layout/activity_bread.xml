@@ -59,7 +59,7 @@
                         android:layout_marginBottom="4dp"
                         android:fontFamily="@font/barlowsemicondensed_medium"
                         android:text="@string/ManageWallet.balance"
-                        android:textColor="@color/white"
+                        android:textColor="@color/almost_black"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toTopOf="@+id/primary_price"
                         app:layout_constraintStart_toStartOf="parent"

@@ -93,7 +93,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:text="@string/About.twitter"
+        android:text="Discord"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/view4"
         app:layout_constraintLeft_toLeftOf="@+id/divider1" />
@@ -111,7 +111,7 @@
         app:layout_constraintLeft_toLeftOf="@+id/divider1" />
 
     <ImageView
-        android:id="@+id/twitter_share_button"
+        android:id="@+id/discord_share_button"
         android:layout_width="16dp"
         android:layout_height="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView22"
@@ -149,6 +149,7 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/info_text" />
 
+    <!-- TODO EDIT THIS IN LATER -->
     <TextView
         style="@style/BRTextStyle"
         android:id="@+id/info_text"
@@ -157,6 +158,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="40dp"
+        android:visibility="gone"
         android:text="@string/About.footer"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"

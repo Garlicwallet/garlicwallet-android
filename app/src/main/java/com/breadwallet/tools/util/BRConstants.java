@@ -125,16 +125,13 @@ public class BRConstants {
     public static final String send = "send-garlicoin";
     public static final String loopBug = "android-loop-bug";
 
-    public static final String TWITTER_LINK = "https://twitter.com/Litewallet_App";
+    public static final String DISCORD_LINK = "https://discord.gg/vAxFRb5DYe";
     public static final String REDDIT_LINK = "https://www.reddit.com/r/garlicoin";
-    public static final String WEB_LINK = "https://lite-wallet.org";
-    public static final String TOS_LINK = "https://lite-wallet.org/policy";
+    public static final String WEB_LINK = "https://garlicwallet.com";
+    public static final String TOS_LINK = "https://garlicwallet.com/privacy";
     public static String CUSTOMER_SUPPORT_LINK = "https://garlicoinfoundation.zendesk.com";
 
     public static final String BLOCK_EXPLORER_BASE_URL = BuildConfig.LITECOIN_TESTNET ? "https://testnet.litecore.io/tx/" : "https://insight.litecore.io/tx/";
-
-
-    public static final String RESET_CARD_PWD_LINK = "https://garlicoin.dashboard.getblockcard.com/password/forgot";
 
     private BRConstants() {
     }

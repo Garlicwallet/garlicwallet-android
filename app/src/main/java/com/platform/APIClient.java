@@ -95,7 +95,7 @@ public class APIClient {
     // convenience getter for the API endpoint
     public static String BASE_URL = PROTO + "://" + BreadApp.HOST;
     //feePerKb url
-    private static final String FEE_PER_KB_URL = "/v1/fee-per-kb"; //https://api.loafwallet.org//v1/fee-per-kb
+    private static final String FEE_PER_KB_URL = "/v1/fee-per-kb"; //https://api.loafwallet.org/v1/fee-per-kb
     //token
     private static final String TOKEN = "/token";
     //me

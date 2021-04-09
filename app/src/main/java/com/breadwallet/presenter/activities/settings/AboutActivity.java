@@ -15,8 +15,6 @@ import com.breadwallet.presenter.activities.util.BRActivity;
 import com.breadwallet.tools.animation.BRAnimator;
 import com.breadwallet.tools.util.BRConstants;
 
-import java.util.Locale;
-
 import timber.log.Timber;
 
 public class AboutActivity extends BRActivity {
@@ -58,7 +56,7 @@ public class AboutActivity extends BRActivity {
         infoText.setText(getString(R.string.About_footer, verName));
 
         redditShare = (ImageView) findViewById(R.id.reddit_share_button);
-        twitterShare = (ImageView) findViewById(R.id.twitter_share_button);
+        twitterShare = (ImageView) findViewById(R.id.discord_share_button);
         blogShare = (ImageView) findViewById(R.id.blog_share_button);
 
         redditShare.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +71,7 @@ public class AboutActivity extends BRActivity {
         twitterShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BRConstants.TWITTER_LINK));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BRConstants.DISCORD_LINK));
                 startActivity(browserIntent);
                 app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
             }

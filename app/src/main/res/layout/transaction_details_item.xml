@@ -260,6 +260,7 @@
                     android:layout_marginEnd="16dp"
                     android:textColor="@color/almost_black" />
 
+                <!-- TODO, FEATURE FOR LATER, CHANGE VISIBILITY -->
                 <TextView
                     android:id="@+id/tx_hash_link"
                     style="@style/BRTextStyle"
@@ -268,6 +269,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
+                    android:visibility="gone"
                     android:clickable="true"
                     android:text="@string/ViewOnBlockchain"
                     android:textColor="@color/dark_blue" />

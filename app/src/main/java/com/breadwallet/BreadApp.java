@@ -76,10 +76,10 @@ public class BreadApp extends Application {
         // setup Timber
         Timber.plant(BuildConfig.DEBUG ? new Timber.DebugTree() : new CrashReportingTree());
 
-        //FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(enableCrashlytics);
-        //AnalyticsManager.init(this);
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(enableCrashlytics); //TODO HERE
+        AnalyticsManager.init(this);
 
-        //AnalyticsManager.logCustomEvent(BRConstants._20191105_AL);
+        AnalyticsManager.logCustomEvent(BRConstants._20191105_AL);
 
         WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
