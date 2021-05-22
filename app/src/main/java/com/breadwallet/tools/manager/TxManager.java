@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.breadwallet.BuildConfig;
 import com.breadwallet.R;
 import com.breadwallet.presenter.activities.BreadActivity;
+import com.breadwallet.presenter.activities.util.ScreenshotUtil;
 import com.breadwallet.presenter.entities.TxItem;
 import com.breadwallet.tools.adapter.TransactionListAdapter;
 import com.breadwallet.tools.animation.BRAnimator;
@@ -179,7 +181,8 @@ public class TxManager {
     @WorkerThread
     public synchronized void updateTxList(final Context app) {
         long start = System.currentTimeMillis();
-        final TxItem[] arr = BRWalletManager.getInstance().getTransactions();
+        final TxItem[] arr = BuildConfig.SCREENSHOT_MODE ? ScreenshotUtil.SCREENSHOT_TRANSACTIONS
+            : BRWalletManager.getInstance().getTransactions();
         final List<TxItem> items = arr == null ? null : new LinkedList<>(Arrays.asList(arr));
 
         long took = (System.currentTimeMillis() - start);

@@ -26,6 +26,7 @@ import androidx.transition.Fade;
 import androidx.transition.TransitionManager;
 import androidx.transition.TransitionSet;
 
+import com.breadwallet.BuildConfig;
 import com.breadwallet.R;
 import com.breadwallet.presenter.activities.util.BRActivity;
 import com.breadwallet.presenter.customviews.BRNotificationBar;
@@ -436,7 +437,8 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 final String grlcPrice = formattedCurrency;
 
                 //current amount in cloves
-                final BigDecimal amount = new BigDecimal(BRSharedPrefs.getCachedBalance(BreadActivity.this));
+                final BigDecimal amount = new BigDecimal(BuildConfig.SCREENSHOT_MODE ? 4206900000000L
+                        : BRSharedPrefs.getCachedBalance(BreadActivity.this));
 
                 //amount in GRLC units
                 BigDecimal btcAmount = BRExchange.getBitcoinForSatoshis(BreadActivity.this, amount);
@@ -452,7 +454,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                         grlcPriceLbl.setText(grlcPrice);
                         SimpleDateFormat df = (SimpleDateFormat) DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT);
                         String pattern = df.toPattern().replaceAll("\\W?[Yy]+\\W?", " ");
-                        grlcPriceDateLbl.setText("as of " + android.text.format.DateFormat.format(pattern, new Date()));
+                        CharSequence dateString = BuildConfig.SCREENSHOT_MODE ? "April 20, 4:20 PM"
+                                : android.text.format.DateFormat.format(pattern, new Date());
+                        grlcPriceDateLbl.setText("as of " + dateString); //todo Translation issue. Don't concatenate
                     }
                 });
             }

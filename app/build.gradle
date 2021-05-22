@@ -50,6 +50,7 @@ android {
         versionName "v2.1.1"
         multiDexEnabled true
 
+        buildConfigField "boolean", "SCREENSHOT_MODE", "false"
         buildConfigField "String", "INFURA_KEY", "\"set the infura key here\""
 
         // Similar to other properties in the defaultConfig block,
