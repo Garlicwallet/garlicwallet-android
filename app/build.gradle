@@ -46,8 +46,8 @@ android {
         applicationId = 'com.garlicwallet'
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 637
-        versionName "v2.1.1"
+        versionCode 638
+        versionName "v1.0.0"
         multiDexEnabled true
 
         buildConfigField "boolean", "SCREENSHOT_MODE", "false"
