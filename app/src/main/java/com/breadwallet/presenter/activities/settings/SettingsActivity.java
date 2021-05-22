@@ -183,7 +183,7 @@ public class SettingsActivity extends BRActivity {
         }, false));
 
         items.add(new BRSettingsItem("", "", null, true));
-
+        /* TODO: Temporarily disabling this option as I dont believe it is implemented.
         items.add(new BRSettingsItem(getString(R.string.Settings_shareData), "", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,6 +192,7 @@ public class SettingsActivity extends BRActivity {
                 overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
             }
         }, false));
+         */
         boolean eaEnabled = APIClient.getInstance(this).isFeatureEnabled(APIClient.FeatureFlags.EARLY_ACCESS.toString());
         eaEnabled = false;
         if (eaEnabled)
