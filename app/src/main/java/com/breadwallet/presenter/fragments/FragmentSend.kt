@@ -516,27 +516,22 @@ class FragmentSend : Fragment() {
         val isInvalid = Utils.isNullOrEmpty(tmpAmount) || tmpAmount.equals(".", ignoreCase = true)
         val satoshis = when {
             isInvalid -> 0
-            selectedIso.equals("grlc", ignoreCase = true) -> brExchange.garlicoinToSatoshis(BigDecimal(tmpAmount)).toLong()
-            else -> brExchange.localValueToGarlicoin(selectedIso, BigDecimal(tmpAmount)).toLong()
+            else -> brExchange.localValueToSatoshi(selectedIso, BigDecimal(tmpAmount)).toLong()
         }
 
-        val localCurrencyBalance = brExchange.garlicoinToLocalValue(selectedIso, BigDecimal(currentBalance))
+        val localCurrencyBalance = brExchange.satoshiToLocalValue(selectedIso, BigDecimal(currentBalance))
         Timber.d("updateText: balanceForISO: %s", localCurrencyBalance)
 
         //formattedBalance
         val formattedBalance = brCurrency.getFormattedCurrencyString(selectedIso, localCurrencyBalance)
         //Balance depending on ISO
-        var fee: Long
-        if (satoshis == 0L) {
-            fee = 0
-        } else {
-            fee = BRWalletManager.getInstance().feeForTransactionAmount(satoshis).toLong()
-            if (fee == 0L) {
-                Timber.i("updateText: fee is 0, trying the estimate")
-                fee = BRWalletManager.getInstance().feeForTransaction(addressEdit.text.toString(), satoshis).toLong()
+        val feeSatoshis: Long =
+            if (satoshis == 0L) {
+                0
+            } else {
+                BRWalletManager.getInstance().feeForTransactionAmount(satoshis).toLong()
             }
-        }
-        val feeForISO = brExchange.garlicoinToLocalValue(selectedIso, BigDecimal(if (currentBalance == 0L) 0 else fee))
+        val feeForISO = brExchange.satoshiToLocalValue(selectedIso, BigDecimal(if (currentBalance == 0L) 0 else feeSatoshis))
         Timber.d("updateText: feeForISO: %s", feeForISO)
         //formattedBalance
         val aproxFee = brCurrency.getFormattedCurrencyString(selectedIso, feeForISO)
@@ -566,7 +561,7 @@ class FragmentSend : Fragment() {
         if (obj.amount != null) {
             val iso = selectedIso
             val satoshiAmount = BigDecimal(obj.amount).multiply(BigDecimal(100000000))
-            amountBuilder = StringBuilder(brExchange.garlicoinToLocalValue(iso, satoshiAmount).toPlainString())
+            amountBuilder = StringBuilder(brExchange.satoshiToLocalValue(iso, satoshiAmount).toPlainString())
             updateText()
         }
     }

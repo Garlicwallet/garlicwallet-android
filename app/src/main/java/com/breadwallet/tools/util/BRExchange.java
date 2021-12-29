@@ -43,7 +43,6 @@ public class BRExchange {
     }
 
     public BigDecimal getMaxAmount(String currencyISOCode) {
-
         return garlicoinToLocalValue(currencyISOCode, BigDecimal.valueOf(MAX_GRLC));
     }
 
@@ -59,6 +58,14 @@ public class BRExchange {
 
     public String getBitcoinSymbol() {
         return BRConstants.bitcoinUppercase;
+    }
+
+    public BigDecimal satoshiToLocalValue(String iso, BigDecimal satoshi) {
+        return garlicoinToLocalValue(iso, satoshisToGarlicoin(satoshi));
+    }
+
+    public BigDecimal localValueToSatoshi(String iso, BigDecimal amount) {
+        return garlicoinToSatoshis(localValueToGarlicoin(iso, amount));
     }
 
     /**
@@ -82,6 +89,7 @@ public class BRExchange {
      * @param amount the amount in local currency
      */
     public  BigDecimal localValueToGarlicoin(String iso, BigDecimal amount) {
+        if(amount.equals(BigDecimal.ZERO)) return BigDecimal.ZERO;
         if (iso.equalsIgnoreCase("GRLC")) {
             return amount;  // 1 GRLC = 1 GRLC
         } else {

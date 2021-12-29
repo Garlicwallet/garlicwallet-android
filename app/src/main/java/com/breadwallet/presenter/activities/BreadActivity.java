@@ -443,7 +443,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 final String formattedBTCAmount = brCurrency.getFormattedCurrencyString("GRLC", btcAmount);
 
                 //amount in currency units
-                final BigDecimal curAmount = brExchange.garlicoinToLocalValue(iso, amount);
+                final BigDecimal curAmount = brExchange.satoshiToLocalValue(iso, amount);
                 final String formattedCurAmount = brCurrency.getFormattedCurrencyString(iso, curAmount);
                 runOnUiThread(() -> {
                     primaryPrice.setText(formattedBTCAmount);

@@ -17,14 +17,14 @@ internal class BRExchangeTest {
 
     @Test
     fun `get max amount in sats should be 69000000 for grlc`() {
-        val exchange = BRExchange(rates, walletManager)
+        val exchange = BRExchange(rates)
 
         assertEquals(69000000.toBigDecimal(), exchange.getMaxAmount("grlc"))
     }
 
     @Test
     fun `test exchange rates applied correctly when getting max`() {
-        val exchange = BRExchange(rates, walletManager)
+        val exchange = BRExchange(rates)
 
         whenever(rates.getCurrencyByIso(any())).thenReturn(CurrencyEntity("USD", "United States Dollar", "11"))
 
@@ -33,25 +33,25 @@ internal class BRExchangeTest {
 
     @Test
     fun testSatoshisToGarlicoin() {
-        val exchange = BRExchange(rates, walletManager)
+        val exchange = BRExchange(rates)
         assertEquals(1.toBigDecimal(), exchange.satoshisToGarlicoin(100000000.toBigDecimal()))
     }
 
     @Test
     fun testGarlicoinToSatoshis() {
-        val exchange = BRExchange(rates, walletManager)
+        val exchange = BRExchange(rates)
         assertEquals(100000000.toBigDecimal(), exchange.garlicoinToSatoshis(1.toBigDecimal()))
     }
 
     @Test
     fun testGetBitcoinSymbol() {
-        val exchange = BRExchange(rates, walletManager)
+        val exchange = BRExchange(rates)
         assertEquals(BRConstants.bitcoinUppercase, exchange.bitcoinSymbol)
     }
 
     @Test
     fun testGetAmountInLocalCurrency() {
-        val exchange = BRExchange(rates, walletManager)
+        val exchange = BRExchange(rates)
 
         whenever(rates.getCurrencyByIso(any())).thenReturn(CurrencyEntity("USD", "United States Dollar", "11"))
 
@@ -60,7 +60,7 @@ internal class BRExchangeTest {
 
     @Test
     fun testGetSatoshisFromAmount() {
-        val exchange = BRExchange(rates, walletManager)
+        val exchange = BRExchange(rates)
 
         whenever(rates.getCurrencyByIso(any())).thenReturn(CurrencyEntity("USD", "United States Dollar", "11"))
 

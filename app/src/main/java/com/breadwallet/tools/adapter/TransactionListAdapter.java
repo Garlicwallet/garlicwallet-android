@@ -284,7 +284,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         boolean isBTCPreferred = BRSharedPrefs.getPreferredGRLC(mContext);
         String iso = isBTCPreferred ? "GRLC" : BRSharedPrefs.getIso(mContext);
-        convertView.amount.setText(brCurrency.getFormattedCurrencyString(iso, brExchange.garlicoinToLocalValue(iso, new BigDecimal(satoshisAmount))));
+        convertView.amount.setText(brCurrency.getFormattedCurrencyString(iso, brExchange.satoshiToLocalValue(iso, new BigDecimal(satoshisAmount))));
 
         //if it's 0 we use the current time.
         long timeStamp = item.getTimeStamp() == 0 ? System.currentTimeMillis() : item.getTimeStamp() * 1000;

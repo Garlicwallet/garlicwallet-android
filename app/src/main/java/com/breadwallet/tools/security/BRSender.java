@@ -370,9 +370,9 @@ public class BRSender {
         String formattedFeeBTC = brCurrency.getFormattedCurrencyString("GRLC", brExchange.satoshisToGarlicoin(new BigDecimal(feeForTx)));
         String formattedTotalBTC = brCurrency.getFormattedCurrencyString("GRLC", brExchange.satoshisToGarlicoin(new BigDecimal(total)));
 
-        String formattedAmount = brCurrency.getFormattedCurrencyString( iso, brExchange.garlicoinToLocalValue(iso, new BigDecimal(request.amount)));
-        String formattedFee = brCurrency.getFormattedCurrencyString(iso, brExchange.garlicoinToLocalValue(iso, new BigDecimal(feeForTx)));
-        String formattedTotal = brCurrency.getFormattedCurrencyString( iso, brExchange.garlicoinToLocalValue(iso, new BigDecimal(total)));
+        String formattedAmount = brCurrency.getFormattedCurrencyString( iso, brExchange.satoshiToLocalValue(iso, new BigDecimal(request.amount)));
+        String formattedFee = brCurrency.getFormattedCurrencyString(iso, brExchange.satoshiToLocalValue(iso, new BigDecimal(feeForTx)));
+        String formattedTotal = brCurrency.getFormattedCurrencyString( iso, brExchange.satoshiToLocalValue(iso, new BigDecimal(total)));
 
         //formatted text
         return receiver + "\n\n"
