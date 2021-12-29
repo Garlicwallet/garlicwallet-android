@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.breadwallet.tools.util.BRConstants;
+import com.breadwallet.tools.util.BRConstants.CurrentUnit;
 
 import org.json.JSONArray;
 
@@ -337,12 +338,12 @@ public class BRSharedPrefs {
         editor.apply();
     }
 
-    public static int getCurrencyUnit(Context context) {
+    public static @CurrentUnit int getCurrencyUnit(Context context) {
         SharedPreferences settingsToGet = context.getSharedPreferences(BRConstants.PREFS_NAME, 0);
         return settingsToGet.getInt(BRConstants.CURRENT_UNIT, BRConstants.CURRENT_UNIT_GARLICOINS);
     }
 
-    public static void putCurrencyUnit(Context context, int unit) {
+    public static void putCurrencyUnit(Context context, @CurrentUnit int unit) {
         if (context == null) return;
         SharedPreferences settings = context.getSharedPreferences(BRConstants.PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();

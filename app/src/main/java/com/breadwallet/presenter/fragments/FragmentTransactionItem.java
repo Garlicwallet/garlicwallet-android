@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -155,15 +154,15 @@ public class FragmentTransactionItem extends Fragment {
         boolean sent = item.getReceived() - item.getSent() < 0;
 
         //calculated and formatted amount for iso
-        String amountWithFee = brCurrency.getFormattedCurrencyString(iso, brExchange.getAmountFromSatoshis(iso, txAmount));
-        String amount = brCurrency.getFormattedCurrencyString(iso, brExchange.getAmountFromSatoshis(iso, item.getFee() == -1 ? txAmount : txAmount.subtract(new BigDecimal(item.getFee()))));
+        String amountWithFee = brCurrency.getFormattedCurrencyString(iso, brExchange.garlicoinToLocalValue(iso, txAmount));
+        String amount = brCurrency.getFormattedCurrencyString(iso, brExchange.garlicoinToLocalValue(iso, item.getFee() == -1 ? txAmount : txAmount.subtract(new BigDecimal(item.getFee()))));
         //calculated and formatted fee for iso
-        String fee = brCurrency.getFormattedCurrencyString(iso, brExchange.getAmountFromSatoshis(iso, new BigDecimal(item.getFee())));
+        String fee = brCurrency.getFormattedCurrencyString(iso, brExchange.garlicoinToLocalValue(iso, new BigDecimal(item.getFee())));
         //description (Sent $24.32 ....)
         Spannable descriptionString = sent ? new SpannableString(String.format(getString(R.string.TransactionDetails_sent), amountWithFee)) : new SpannableString(String.format(getString(R.string.TransactionDetails_received), amount));
 
-        String startingBalance = brCurrency.getFormattedCurrencyString(iso, brExchange.getAmountFromSatoshis(iso, new BigDecimal(sent ? item.getBalanceAfterTx() + txAmount.longValue() : item.getBalanceAfterTx() - txAmount.longValue())));
-        String endingBalance = brCurrency.getFormattedCurrencyString(iso, brExchange.getAmountFromSatoshis(iso, new BigDecimal(item.getBalanceAfterTx())));
+        String startingBalance = brCurrency.getFormattedCurrencyString(iso, brExchange.garlicoinToLocalValue(iso, new BigDecimal(sent ? item.getBalanceAfterTx() + txAmount.longValue() : item.getBalanceAfterTx() - txAmount.longValue())));
+        String endingBalance = brCurrency.getFormattedCurrencyString(iso, brExchange.garlicoinToLocalValue(iso, new BigDecimal(item.getBalanceAfterTx())));
         String commentString = item.metaData == null || item.metaData.comment == null ? "" : item.metaData.comment;
         String sb = String.format(getString(R.string.Transaction_starting), startingBalance);
         String eb = String.format(getString(R.string.Transaction_ending), endingBalance);

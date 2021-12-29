@@ -366,13 +366,13 @@ public class BRSender {
             feeForTx += (BRWalletManager.getInstance().getBalance(ctx) - request.amount) % 100;
         }
         final long total = request.amount + feeForTx;
-        String formattedAmountBTC = brCurrency.getFormattedCurrencyString("GRLC", brExchange.getBitcoinForSatoshis(new BigDecimal(request.amount)));
-        String formattedFeeBTC = brCurrency.getFormattedCurrencyString("GRLC", brExchange.getBitcoinForSatoshis(new BigDecimal(feeForTx)));
-        String formattedTotalBTC = brCurrency.getFormattedCurrencyString("GRLC", brExchange.getBitcoinForSatoshis(new BigDecimal(total)));
+        String formattedAmountBTC = brCurrency.getFormattedCurrencyString("GRLC", brExchange.satoshisToGarlicoin(new BigDecimal(request.amount)));
+        String formattedFeeBTC = brCurrency.getFormattedCurrencyString("GRLC", brExchange.satoshisToGarlicoin(new BigDecimal(feeForTx)));
+        String formattedTotalBTC = brCurrency.getFormattedCurrencyString("GRLC", brExchange.satoshisToGarlicoin(new BigDecimal(total)));
 
-        String formattedAmount = brCurrency.getFormattedCurrencyString( iso, brExchange.getAmountFromSatoshis(iso, new BigDecimal(request.amount)));
-        String formattedFee = brCurrency.getFormattedCurrencyString(iso, brExchange.getAmountFromSatoshis(iso, new BigDecimal(feeForTx)));
-        String formattedTotal = brCurrency.getFormattedCurrencyString( iso, brExchange.getAmountFromSatoshis(iso, new BigDecimal(total)));
+        String formattedAmount = brCurrency.getFormattedCurrencyString( iso, brExchange.garlicoinToLocalValue(iso, new BigDecimal(request.amount)));
+        String formattedFee = brCurrency.getFormattedCurrencyString(iso, brExchange.garlicoinToLocalValue(iso, new BigDecimal(feeForTx)));
+        String formattedTotal = brCurrency.getFormattedCurrencyString( iso, brExchange.garlicoinToLocalValue(iso, new BigDecimal(total)));
 
         //formatted text
         return receiver + "\n\n"

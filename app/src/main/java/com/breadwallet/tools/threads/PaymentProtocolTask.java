@@ -345,9 +345,9 @@ public class PaymentProtocolTask extends AsyncTask<String, String, String> {
                 }
                 final long total = paymentRequest.amount + paymentRequest.fee;
 
-                BigDecimal bigAm = brExchange.getAmountFromSatoshis(iso, new BigDecimal(paymentRequest.amount));
-                BigDecimal bigFee = brExchange.getAmountFromSatoshis(iso, new BigDecimal(paymentRequest.fee));
-                BigDecimal bigTotal = brExchange.getAmountFromSatoshis(iso, new BigDecimal(total));
+                BigDecimal bigAm = brExchange.garlicoinToLocalValue(iso, new BigDecimal(paymentRequest.amount));
+                BigDecimal bigFee = brExchange.garlicoinToLocalValue(iso, new BigDecimal(paymentRequest.fee));
+                BigDecimal bigTotal = brExchange.garlicoinToLocalValue(iso, new BigDecimal(total));
                 final String message = certification + memo + finalAllAddresses.toString() + "\n\n" + "amount: " + brCurrency.getFormattedCurrencyString(iso, bigAm)
                         + "\nnetwork fee: +" + brCurrency.getFormattedCurrencyString(iso, bigFee)
                         + "\ntotal: " + brCurrency.getFormattedCurrencyString(iso, bigTotal);

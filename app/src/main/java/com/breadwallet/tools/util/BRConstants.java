@@ -2,6 +2,7 @@ package com.breadwallet.tools.util;
 
 import android.util.Pair;
 
+import androidx.annotation.IntDef;
 import androidx.annotation.StringDef;
 
 import com.breadwallet.BuildConfig;
@@ -97,6 +98,10 @@ public class BRConstants {
     /**
      * Currency units
      */
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({CURRENT_UNIT_PHOTONS, CURRENT_UNIT_LITES, CURRENT_UNIT_GARLICOINS})
+    public @interface CurrentUnit {}
+
     public static final int CURRENT_UNIT_PHOTONS = 0; // formerly CURRENT_UNIT_BITS
     public static final int CURRENT_UNIT_LITES = 1; // formerly CURRENT_UNIT_MBITS
     public static final int CURRENT_UNIT_GARLICOINS = 2;

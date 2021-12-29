@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import androidx.annotation.Nullable;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,8 +40,6 @@ import java.math.BigDecimal;
 import javax.inject.Inject;
 
 import timber.log.Timber;
-
-import static com.platform.HTTPServer.URL_SUPPORT;
 
 
 /**
@@ -207,7 +204,7 @@ public class FragmentRequestAmount extends Fragment {
                 String iso = selectedIso;
                 String strAmount = amountEdit.getText().toString();
                 BigDecimal bigAmount = new BigDecimal((Utils.isNullOrEmpty(strAmount) || strAmount.equalsIgnoreCase(".")) ? "0" : strAmount);
-                long amount = brExchange.getSatoshisFromAmount(iso, bigAmount).longValue();
+                long amount = brExchange.localValueToGarlicoin(iso, bigAmount).longValue();
                 String bitcoinUri = Utils.createBitcoinUrl(receiveAddress, amount, null, null, null);
                 QRUtils.share("mailto:", getActivity(), bitcoinUri);
 
@@ -422,7 +419,7 @@ public class FragmentRequestAmount extends Fragment {
         String amountArg = "";
         if (strAmount != null && !strAmount.isEmpty()) {
             BigDecimal bigAmount = new BigDecimal((Utils.isNullOrEmpty(strAmount) || strAmount.equalsIgnoreCase(".")) ? "0" : strAmount);
-            long amount = brExchange.getSatoshisFromAmount(iso, bigAmount).longValue();
+            long amount = brExchange.localValueToGarlicoin(iso, bigAmount).longValue();
             String am = new BigDecimal(amount).divide(new BigDecimal(100000000), 8, BRConstants.ROUNDING_MODE).toPlainString();
             amountArg = "?amount=" + am;
         }

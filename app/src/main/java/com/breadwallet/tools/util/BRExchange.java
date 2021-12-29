@@ -1,17 +1,12 @@
 package com.breadwallet.tools.util;
 
-import android.content.Context;
-
 import com.breadwallet.presenter.entities.CurrencyEntity;
-import com.breadwallet.tools.manager.BRSharedPrefs;
 import com.breadwallet.tools.sqlite.CurrencyDataSource;
-import com.breadwallet.wallet.BRWalletManager;
 
 import java.math.BigDecimal;
 
 import javax.inject.Inject;
 
-import static com.breadwallet.tools.util.BRConstants.CURRENT_UNIT_PHOTONS;
 import static com.breadwallet.tools.util.BRConstants.ROUNDING_MODE;
 
 /**
@@ -39,104 +34,60 @@ import static com.breadwallet.tools.util.BRConstants.ROUNDING_MODE;
  * THE SOFTWARE.
  */
 public class BRExchange {
-    private final Context app;
+    private final CurrencyDataSource currencyDataSource;
+    private static final long MAX_GRLC = 69000000;
+    private static final long SAT_PER_GRLC = 100000000;
 
-    @Inject public BRExchange(Context app) {
-        this.app = app;
+    @Inject public BRExchange(CurrencyDataSource currencyDataSource) {
+        this.currencyDataSource = currencyDataSource;
     }
 
     public BigDecimal getMaxAmount(String currencyISOCode) {
-        final long MAX_BTC = 69000000;
-        if (currencyISOCode.equalsIgnoreCase("GRLC"))
-            return getBitcoinForSatoshis(new BigDecimal(MAX_BTC * 100000000));
-        CurrencyEntity ent = CurrencyDataSource.getInstance(app).getCurrencyByIso(currencyISOCode);
-        if (ent == null) return new BigDecimal(Integer.MAX_VALUE);
-        return ent.rate.multiply(new BigDecimal(MAX_BTC));
+
+        return garlicoinToLocalValue(currencyISOCode, BigDecimal.valueOf(MAX_GRLC));
     }
 
     // amount in satoshis
-    public BigDecimal getBitcoinForSatoshis(BigDecimal amount) {
-        BigDecimal result = new BigDecimal(0);
-        int unit = BRSharedPrefs.getCurrencyUnit(app);
-        switch (unit) {
-            case CURRENT_UNIT_PHOTONS:
-                result = new BigDecimal(String.valueOf(amount)).divide(new BigDecimal("100"), 2, ROUNDING_MODE);
-                break;
-            case BRConstants.CURRENT_UNIT_LITES:
-                result = new BigDecimal(String.valueOf(amount)).divide(new BigDecimal("100000"), 5, ROUNDING_MODE);
-                break;
-            case BRConstants.CURRENT_UNIT_GARLICOINS:
-                result = new BigDecimal(String.valueOf(amount)).divide(new BigDecimal("100000000"), 8, ROUNDING_MODE);
-                break;
-        }
-        return result;
+    public BigDecimal satoshisToGarlicoin(BigDecimal amount) {
+        return new BigDecimal(String.valueOf(amount))
+                .divide(new BigDecimal(SAT_PER_GRLC), 8, ROUNDING_MODE);
     }
 
-    public BigDecimal getSatoshisForBitcoin(BigDecimal amount) {
-        BigDecimal result = new BigDecimal(0);
-        int unit = BRSharedPrefs.getCurrencyUnit(app);
-        switch (unit) {
-            case CURRENT_UNIT_PHOTONS:
-                result = new BigDecimal(String.valueOf(amount)).multiply(new BigDecimal("100"));
-                break;
-            case BRConstants.CURRENT_UNIT_LITES:
-                result = new BigDecimal(String.valueOf(amount)).multiply(new BigDecimal("100000"));
-                break;
-            case BRConstants.CURRENT_UNIT_GARLICOINS:
-                result = new BigDecimal(String.valueOf(amount)).multiply(new BigDecimal("100000000"));
-                break;
-        }
-        return result;
+    public BigDecimal garlicoinToSatoshis(BigDecimal amount) {
+        return new BigDecimal(String.valueOf(amount)).multiply(new BigDecimal(SAT_PER_GRLC));
     }
 
     public String getBitcoinSymbol() {
-        String currencySymbolString = BRConstants.bitcoinLowercase;
-        if (app != null) {
-            int unit = BRSharedPrefs.getCurrencyUnit(app);
-            switch (unit) {
-                case CURRENT_UNIT_PHOTONS:
-                    currencySymbolString = "m" + BRConstants.bitcoinLowercase;
-                    break;
-                case BRConstants.CURRENT_UNIT_LITES:
-                    currencySymbolString = BRConstants.bitcoinLowercase;
-                    break;
-                case BRConstants.CURRENT_UNIT_GARLICOINS:
-                    currencySymbolString = BRConstants.bitcoinUppercase;
-                    break;
-            }
-        }
-        return currencySymbolString;
+        return BRConstants.bitcoinUppercase;
     }
 
-    //get an iso amount from  satoshis
-    public BigDecimal getAmountFromSatoshis(String iso, BigDecimal amount) {
-        BigDecimal result;
+    /**
+     * Returns the value in a given currency for a given amount of Garlicoin
+     * @param iso the currency to return a value for
+     * @param garlicoin the amount in GRLC
+     */
+    public BigDecimal garlicoinToLocalValue(String iso, BigDecimal garlicoin) {
         if (iso.equalsIgnoreCase("GRLC")) {
-            result = getBitcoinForSatoshis (amount);
+            return garlicoin; // 1 GRLC = 1 GRLC
         } else {
-            //multiply by 100 because core function localAmount accepts the smallest amount e.g. cents
-            CurrencyEntity ent = CurrencyDataSource.getInstance(app).getCurrencyByIso(iso);
+            CurrencyEntity ent = currencyDataSource.getCurrencyByIso(iso);
             if (ent == null) return new BigDecimal(0);
-            BigDecimal rate = ent.rate.multiply(new BigDecimal(100));
-            result = new BigDecimal(BRWalletManager.getInstance().localAmount(amount.longValue(), rate.doubleValue()))
-                    .divide(new BigDecimal(100), 2, BRConstants.ROUNDING_MODE);
+            return ent.rate.multiply(garlicoin);
         }
-        return result;
     }
 
-
-    //get satoshis from an iso amount
-    public  BigDecimal getSatoshisFromAmount(String iso, BigDecimal amount) {
-        BigDecimal result;
+    /**
+     * Returns the garlicoin value for a given amount of local currency
+     * @param iso the currency selected
+     * @param amount the amount in local currency
+     */
+    public  BigDecimal localValueToGarlicoin(String iso, BigDecimal amount) {
         if (iso.equalsIgnoreCase("GRLC")) {
-            result = getSatoshisForBitcoin(amount);
+            return amount;  // 1 GRLC = 1 GRLC
         } else {
-            //multiply by 100 because core function localAmount accepts the smallest amount e.g. cents
-            CurrencyEntity ent = CurrencyDataSource.getInstance(app).getCurrencyByIso(iso);
+            CurrencyEntity ent = currencyDataSource.getCurrencyByIso(iso);
             if (ent == null) return new BigDecimal(0);
-            BigDecimal rate = ent.rate.multiply(new BigDecimal(100));
-            result = new BigDecimal(BRWalletManager.getInstance().bitcoinAmount(amount.multiply(new BigDecimal(100)).longValue(), rate.doubleValue()));
+            return amount.divide(amount, BigDecimal.ROUND_HALF_UP);
         }
-        return result;
     }
 }

@@ -20,7 +20,6 @@ import com.breadwallet.presenter.activities.util.BRActivity;
 import com.breadwallet.tools.manager.BRSharedPrefs;
 import com.breadwallet.tools.security.AuthManager;
 import com.breadwallet.tools.security.BRKeyStore;
-import com.breadwallet.tools.util.BRExchange;
 import com.breadwallet.wallet.BRWalletManager;
 
 import java.math.BigDecimal;
@@ -171,8 +170,8 @@ public class SpendLimitActivity extends BRActivity {
             // get the TextView and then set the text (item name) and tag (item ID) values
             TextView textViewItem = convertView.findViewById(R.id.currency_item_name);
             Integer item = getItem(position);
-            BigDecimal curAmount = brExchange.getAmountFromSatoshis(BRSharedPrefs.getIso(app), new BigDecimal(item));
-            BigDecimal btcAmount = brExchange.getBitcoinForSatoshis(new BigDecimal(item));
+            BigDecimal curAmount = brExchange.garlicoinToLocalValue(BRSharedPrefs.getIso(app), new BigDecimal(item));
+            BigDecimal btcAmount = brExchange.satoshisToGarlicoin(new BigDecimal(item));
             String text = String.format(item == 0 ? app.getString(R.string.TouchIdSpendingLimit) : "%s (%s)", curAmount, btcAmount);
             textViewItem.setText(text);
             ImageView checkMark = convertView.findViewById(R.id.currency_checkmark);

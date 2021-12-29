@@ -92,7 +92,7 @@ class FragmentSend : Fragment() {
     private lateinit var balanceText: TextView
     private lateinit var feeText: TextView
     private lateinit var edit: ImageView
-    private var curBalance: Long = 0
+    private var currentBalance: Long = 0
     private var selectedIso: String? = null
     private lateinit var isoButton: Button
     private var keyboardIndex = 0
@@ -360,7 +360,7 @@ class FragmentSend : Fragment() {
 
             //get amount in satoshis from any isos
             val bigAmount = BigDecimal(if (Utils.isNullOrEmpty(amountStr)) "0" else amountStr)
-            val satoshiAmount = brExchange.getSatoshisFromAmount(iso, bigAmount)
+            val satoshiAmount = brExchange.localValueToGarlicoin(iso, bigAmount)
             if (address.isEmpty() || !BRWalletManager.validateAddress(address)) {
                 allFilled = false
                 SpringAnimator.failShakeAnimation(activity, addressEdit)
@@ -505,18 +505,26 @@ class FragmentSend : Fragment() {
         if (activity == null) return
         val tmpAmount = amountBuilder.toString()
         setAmount()
-        val iso = selectedIso
+
         val currencySymbol = brCurrency.getSymbolByIso(selectedIso)
-        curBalance = BRWalletManager.getInstance().getBalance(activity)
+        currentBalance = BRWalletManager.getInstance().getBalance(activity)
+
         if (!amountLabelOn) isoText.text = currencySymbol
         isoButton.text = String.format("%s(%s)", brCurrency.getCurrencyName(selectedIso), currencySymbol)
+
         //Balance depending on ISO
-        val satoshis = if (Utils.isNullOrEmpty(tmpAmount) || tmpAmount.equals(".", ignoreCase = true)) 0 else if (selectedIso.equals("btc", ignoreCase = true)) brExchange.getSatoshisForBitcoin(BigDecimal(tmpAmount)).toLong() else brExchange.getSatoshisFromAmount(selectedIso, BigDecimal(tmpAmount)).toLong()
-        val balanceForISO = brExchange.getAmountFromSatoshis(iso, BigDecimal(curBalance))
-        Timber.d("updateText: balanceForISO: %s", balanceForISO)
+        val isInvalid = Utils.isNullOrEmpty(tmpAmount) || tmpAmount.equals(".", ignoreCase = true)
+        val satoshis = when {
+            isInvalid -> 0
+            selectedIso.equals("grlc", ignoreCase = true) -> brExchange.garlicoinToSatoshis(BigDecimal(tmpAmount)).toLong()
+            else -> brExchange.localValueToGarlicoin(selectedIso, BigDecimal(tmpAmount)).toLong()
+        }
+
+        val localCurrencyBalance = brExchange.garlicoinToLocalValue(selectedIso, BigDecimal(currentBalance))
+        Timber.d("updateText: balanceForISO: %s", localCurrencyBalance)
 
         //formattedBalance
-        val formattedBalance = brCurrency.getFormattedCurrencyString(iso, balanceForISO)
+        val formattedBalance = brCurrency.getFormattedCurrencyString(selectedIso, localCurrencyBalance)
         //Balance depending on ISO
         var fee: Long
         if (satoshis == 0L) {
@@ -528,21 +536,15 @@ class FragmentSend : Fragment() {
                 fee = BRWalletManager.getInstance().feeForTransaction(addressEdit.text.toString(), satoshis).toLong()
             }
         }
-        val feeForISO = brExchange.getAmountFromSatoshis(iso, BigDecimal(if (curBalance == 0L) 0 else fee))
+        val feeForISO = brExchange.garlicoinToLocalValue(selectedIso, BigDecimal(if (currentBalance == 0L) 0 else fee))
         Timber.d("updateText: feeForISO: %s", feeForISO)
         //formattedBalance
-        val aproxFee = brCurrency.getFormattedCurrencyString(iso, feeForISO)
+        val aproxFee = brCurrency.getFormattedCurrencyString(selectedIso, feeForISO)
         Timber.d("updateText: aproxFee: %s", aproxFee)
-        if (BigDecimal(if (tmpAmount.isEmpty() || tmpAmount.equals(".", ignoreCase = true)) "0" else tmpAmount).toDouble() > balanceForISO.toDouble()) {
-            balanceText.setTextColor(context!!.getColor(R.color.warning_color))
-            feeText.setTextColor(context!!.getColor(R.color.warning_color))
-            amountEdit.setTextColor(context!!.getColor(R.color.warning_color))
-            if (!amountLabelOn) isoText.setTextColor(context!!.getColor(R.color.warning_color))
+        if (BigDecimal(if (tmpAmount.isEmpty() || tmpAmount.equals(".", ignoreCase = true)) "0" else tmpAmount).toDouble() > localCurrencyBalance.toDouble()) {
+            showValueError()
         } else {
-            balanceText.setTextColor(context!!.getColor(R.color.light_gray))
-            feeText.setTextColor(context!!.getColor(R.color.light_gray))
-            amountEdit.setTextColor(context!!.getColor(R.color.almost_black))
-            if (!amountLabelOn) isoText.setTextColor(context!!.getColor(R.color.almost_black))
+            showValueOk()
         }
         balanceText.text = getString(R.string.Send_balance, formattedBalance)
         feeText.text = String.format(getString(R.string.Send_fee), aproxFee)
@@ -564,9 +566,23 @@ class FragmentSend : Fragment() {
         if (obj.amount != null) {
             val iso = selectedIso
             val satoshiAmount = BigDecimal(obj.amount).multiply(BigDecimal(100000000))
-            amountBuilder = StringBuilder(brExchange.getAmountFromSatoshis(iso, satoshiAmount).toPlainString())
+            amountBuilder = StringBuilder(brExchange.garlicoinToLocalValue(iso, satoshiAmount).toPlainString())
             updateText()
         }
+    }
+
+    private fun showValueError(){
+        balanceText.setTextColor(context!!.getColor(R.color.warning_color))
+        feeText.setTextColor(context!!.getColor(R.color.warning_color))
+        amountEdit.setTextColor(context!!.getColor(R.color.warning_color))
+        if (!amountLabelOn) isoText.setTextColor(context!!.getColor(R.color.warning_color))
+    }
+
+    private fun showValueOk(){
+        balanceText.setTextColor(context!!.getColor(R.color.light_gray))
+        feeText.setTextColor(context!!.getColor(R.color.light_gray))
+        amountEdit.setTextColor(context!!.getColor(R.color.almost_black))
+        if (!amountLabelOn) isoText.setTextColor(context!!.getColor(R.color.almost_black))
     }
 
     private fun showFeeSelectionButtons(b: Boolean) {

@@ -42,8 +42,6 @@ import com.breadwallet.tools.sqlite.CurrencyDataSource;
 import com.breadwallet.tools.sqlite.TransactionDataSource;
 import com.breadwallet.tools.threads.BRExecutor;
 import com.breadwallet.tools.util.BRConstants;
-import com.breadwallet.tools.util.BRCurrency;
-import com.breadwallet.tools.util.BRExchange;
 import com.breadwallet.tools.util.ExtensionKt;
 import com.breadwallet.tools.util.Utils;
 import com.breadwallet.wallet.BRPeerManager;
@@ -441,11 +439,11 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                         : BRSharedPrefs.getCachedBalance(BreadActivity.this));
 
                 //amount in GRLC units
-                BigDecimal btcAmount = brExchange.getBitcoinForSatoshis(amount);
+                BigDecimal btcAmount = brExchange.satoshisToGarlicoin(amount);
                 final String formattedBTCAmount = brCurrency.getFormattedCurrencyString("GRLC", btcAmount);
 
                 //amount in currency units
-                final BigDecimal curAmount = brExchange.getAmountFromSatoshis(iso, amount);
+                final BigDecimal curAmount = brExchange.garlicoinToLocalValue(iso, amount);
                 final String formattedCurAmount = brCurrency.getFormattedCurrencyString(iso, curAmount);
                 runOnUiThread(() -> {
                     primaryPrice.setText(formattedBTCAmount);

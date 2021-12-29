@@ -24,8 +24,6 @@ import com.breadwallet.tools.animation.BRDialog;
 import com.breadwallet.tools.manager.BRSharedPrefs;
 import com.breadwallet.tools.security.AuthManager;
 import com.breadwallet.tools.security.BRKeyStore;
-import com.breadwallet.tools.util.BRCurrency;
-import com.breadwallet.tools.util.BRExchange;
 import com.breadwallet.tools.util.Utils;
 
 import java.math.BigDecimal;
@@ -128,9 +126,9 @@ public class FingerprintActivity extends BRActivity {
         //amount in satoshis
         BigDecimal satoshis = new BigDecimal(BRKeyStore.getSpendLimit(this));
         //amount in BTC, mBTC or bits
-        BigDecimal amount = brExchange.getAmountFromSatoshis( "GRLC", satoshis);
+        BigDecimal amount = brExchange.garlicoinToLocalValue( "GRLC", satoshis);
         //amount in user preferred ISO (e.g. USD)
-        BigDecimal curAmount = brExchange.getAmountFromSatoshis(iso, satoshis);
+        BigDecimal curAmount = brExchange.garlicoinToLocalValue(iso, satoshis);
         //formatted string for the label
         return String.format(getString(R.string.TouchIdSettings_spendingLimit), brCurrency.getFormattedCurrencyString("GRLC", amount), brCurrency.getFormattedCurrencyString( iso, curAmount));
     }

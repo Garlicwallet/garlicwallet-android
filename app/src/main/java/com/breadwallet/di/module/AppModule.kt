@@ -1,6 +1,7 @@
 package com.breadwallet.di.module
 
 import com.breadwallet.BreadApp
+import com.breadwallet.tools.sqlite.CurrencyDataSource
 import com.breadwallet.tools.util.BRCurrency
 import com.breadwallet.tools.util.BRExchange
 import dagger.Module
@@ -21,8 +22,8 @@ class AppModule(val app: BreadApp) {
 
     @Provides
     @Singleton
-    fun provideBRExchange(app: BreadApp): BRExchange {
-        return BRExchange(app)
+    fun provideBRExchange(): BRExchange {
+        return BRExchange(CurrencyDataSource.getInstance(app))
     }
 
     @Provides
