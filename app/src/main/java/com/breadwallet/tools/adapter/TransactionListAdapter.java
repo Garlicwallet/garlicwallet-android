@@ -16,6 +16,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.breadwallet.BreadApp;
 import com.breadwallet.R;
 import com.breadwallet.presenter.entities.TxItem;
 import com.breadwallet.tools.manager.BRSharedPrefs;
@@ -33,6 +34,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import timber.log.Timber;
 
@@ -75,6 +78,8 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private final int syncingType = 2;
     private boolean updatingReverseTxHash;
     private boolean updatingData;
+    @Inject BRExchange brExchange;
+    @Inject BRCurrency brCurrency;
 
     public TransactionListAdapter(Context mContext, List<TxItem> items) {
         this.txResId = R.layout.tx_item;
@@ -82,6 +87,8 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         this.promptResId = R.layout.prompt_item;
         this.mContext = mContext;
         items = new ArrayList<>();
+        BreadApp brApp = (BreadApp) mContext.getApplicationContext();
+        brApp.appComponent.inject(this);
         init(items);
     }
 
@@ -277,7 +284,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         boolean isBTCPreferred = BRSharedPrefs.getPreferredGRLC(mContext);
         String iso = isBTCPreferred ? "GRLC" : BRSharedPrefs.getIso(mContext);
-        convertView.amount.setText(BRCurrency.getFormattedCurrencyString(mContext, iso, BRExchange.getAmountFromSatoshis(mContext, iso, new BigDecimal(satoshisAmount))));
+        convertView.amount.setText(brCurrency.getFormattedCurrencyString(iso, brExchange.getAmountFromSatoshis(iso, new BigDecimal(satoshisAmount))));
 
         //if it's 0 we use the current time.
         long timeStamp = item.getTimeStamp() == 0 ? System.currentTimeMillis() : item.getTimeStamp() * 1000;

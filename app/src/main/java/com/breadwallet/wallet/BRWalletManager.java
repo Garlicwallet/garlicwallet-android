@@ -397,28 +397,6 @@ public class BRWalletManager {
 
     }
 
-    public static void onTxAdded(byte[] tx, int blockHeight, long timestamp, final long amount, String hash) {
-        Timber.d("onTxAdded: " + String.format("tx.length: %d, blockHeight: %d, timestamp: %d, amount: %d, hash: %s", tx.length, blockHeight, timestamp, amount, hash));
-
-        final Context ctx = BreadApp.getBreadContext();
-        if (amount > 0) {
-            BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
-                @Override
-                public void run() {
-                    String am = BRCurrency.getFormattedCurrencyString(ctx, "GRLC", BRExchange.getBitcoinForSatoshis(ctx, new BigDecimal(amount)));
-                    String amCur = BRCurrency.getFormattedCurrencyString(ctx, BRSharedPrefs.getIso(ctx), BRExchange.getAmountFromSatoshis(ctx, BRSharedPrefs.getIso(ctx), new BigDecimal(amount)));
-                    String formatted = String.format("%s (%s)", am, amCur);
-                    String strToShow = String.format(ctx.getString(R.string.TransactionDetails_received), formatted);
-                    showToastWithMessage(ctx, strToShow);
-                }
-            });
-        }
-        if (ctx != null)
-            TransactionDataSource.getInstance(ctx).putTransaction(new BRTransactionEntity(tx, blockHeight, timestamp, hash));
-        else
-            Timber.i("onTxAdded: ctx is null!");
-    }
-
     private static void showToastWithMessage(Context ctx, final String message) {
         if (ctx == null) ctx = BreadApp.getBreadContext();
         if (ctx != null) {

@@ -16,12 +16,11 @@ import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.text.trimmedLength
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.transition.AutoTransition
 import androidx.transition.Transition
 import androidx.transition.TransitionManager
+import com.breadwallet.BreadApp
 import com.breadwallet.R
 import com.breadwallet.presenter.customviews.BRKeyboard
 import com.breadwallet.presenter.customviews.BRLinearLayoutWithCaret
@@ -30,18 +29,22 @@ import com.breadwallet.tools.animation.BRAnimator
 import com.breadwallet.tools.animation.BRDialog
 import com.breadwallet.tools.animation.SlideDetector
 import com.breadwallet.tools.animation.SpringAnimator
-import com.breadwallet.tools.manager.*
+import com.breadwallet.tools.manager.AnalyticsManager
+import com.breadwallet.tools.manager.BRClipboardManager
+import com.breadwallet.tools.manager.BRSharedPrefs
+import com.breadwallet.tools.manager.FeeManager
 import com.breadwallet.tools.security.BRSender
 import com.breadwallet.tools.security.BitcoinUrlHandler
 import com.breadwallet.tools.threads.BRExecutor
-import com.breadwallet.tools.util.*
+import com.breadwallet.tools.util.BRConstants
+import com.breadwallet.tools.util.BRCurrency
+import com.breadwallet.tools.util.BRExchange
+import com.breadwallet.tools.util.Utils
 import com.breadwallet.wallet.BRWalletManager
-import com.github.razir.progressbutton.bindProgressButton
-import com.github.razir.progressbutton.hideProgress
-import com.github.razir.progressbutton.showProgress
 import timber.log.Timber
 import java.math.BigDecimal
 import java.util.regex.Pattern
+import javax.inject.Inject
 
 /**
  * BreadWallet
@@ -72,6 +75,8 @@ import java.util.regex.Pattern
  * THE SOFTWARE.
  */
 class FragmentSend : Fragment() {
+    @Inject lateinit var brExchange: BRExchange
+    @Inject lateinit var brCurrency: BRCurrency
     private lateinit var backgroundLayout: ScrollView
     private lateinit var signalLayout: LinearLayout
     private lateinit var keyboard: BRKeyboard
@@ -105,6 +110,7 @@ class FragmentSend : Fragment() {
     private lateinit var udLookupButton: Button
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        (requireActivity().applicationContext as BreadApp).appComponent.inject(this)
         val rootView = inflater.inflate(R.layout.fragment_send, container, false)
         backgroundLayout = rootView.findViewById(R.id.background_layout)
         signalLayout = rootView.findViewById<View>(R.id.signal_layout) as LinearLayout
@@ -215,7 +221,7 @@ class FragmentSend : Fragment() {
                 feeText.visibility = View.VISIBLE
                 edit.visibility = View.VISIBLE
                 isoText.setTextColor(context!!.getColor(R.color.almost_black))
-                isoText.text = BRCurrency.getSymbolByIso(activity, selectedIso)
+                isoText.text = brCurrency.getSymbolByIso(selectedIso)
                 isoText.textSize = 28f
                 val scaleX = amountEdit.scaleX
                 amountEdit.scaleX = 0f
@@ -354,7 +360,7 @@ class FragmentSend : Fragment() {
 
             //get amount in satoshis from any isos
             val bigAmount = BigDecimal(if (Utils.isNullOrEmpty(amountStr)) "0" else amountStr)
-            val satoshiAmount = BRExchange.getSatoshisFromAmount(activity, iso, bigAmount)
+            val satoshiAmount = brExchange.getSatoshisFromAmount(iso, bigAmount)
             if (address.isEmpty() || !BRWalletManager.validateAddress(address)) {
                 allFilled = false
                 SpringAnimator.failShakeAnimation(activity, addressEdit)
@@ -471,10 +477,10 @@ class FragmentSend : Fragment() {
         val currAmount = amountBuilder.toString()
         val iso = selectedIso
         if (BigDecimal(currAmount + dig.toString()).toDouble()
-                <= BRExchange.getMaxAmount(activity, iso).toDouble()) {
+                <= brExchange.getMaxAmount(iso).toDouble()) {
             //do not insert 0 if the balance is 0 now
             if (currAmount.equals("0", ignoreCase = true)) amountBuilder = StringBuilder("")
-            if (currAmount.contains(".") && currAmount.length - currAmount.indexOf(".") > BRCurrency.getMaxDecimalPlaces(iso)) return
+            if (currAmount.contains(".") && currAmount.length - currAmount.indexOf(".") > brCurrency.getMaxDecimalPlaces(iso)) return
             amountBuilder.append(dig)
             updateText()
         }
@@ -482,7 +488,7 @@ class FragmentSend : Fragment() {
 
     private fun handleSeparatorClick() {
         val currAmount = amountBuilder.toString()
-        if (currAmount.contains(".") || BRCurrency.getMaxDecimalPlaces(selectedIso) == 0) return
+        if (currAmount.contains(".") || brCurrency.getMaxDecimalPlaces(selectedIso) == 0) return
         amountBuilder.append(".")
         updateText()
     }
@@ -500,17 +506,17 @@ class FragmentSend : Fragment() {
         val tmpAmount = amountBuilder.toString()
         setAmount()
         val iso = selectedIso
-        val currencySymbol = BRCurrency.getSymbolByIso(activity, selectedIso)
+        val currencySymbol = brCurrency.getSymbolByIso(selectedIso)
         curBalance = BRWalletManager.getInstance().getBalance(activity)
         if (!amountLabelOn) isoText.text = currencySymbol
-        isoButton.text = String.format("%s(%s)", BRCurrency.getCurrencyName(activity, selectedIso), currencySymbol)
+        isoButton.text = String.format("%s(%s)", brCurrency.getCurrencyName(selectedIso), currencySymbol)
         //Balance depending on ISO
-        val satoshis = if (Utils.isNullOrEmpty(tmpAmount) || tmpAmount.equals(".", ignoreCase = true)) 0 else if (selectedIso.equals("btc", ignoreCase = true)) BRExchange.getSatoshisForBitcoin(activity, BigDecimal(tmpAmount)).toLong() else BRExchange.getSatoshisFromAmount(activity, selectedIso, BigDecimal(tmpAmount)).toLong()
-        val balanceForISO = BRExchange.getAmountFromSatoshis(activity, iso, BigDecimal(curBalance))
+        val satoshis = if (Utils.isNullOrEmpty(tmpAmount) || tmpAmount.equals(".", ignoreCase = true)) 0 else if (selectedIso.equals("btc", ignoreCase = true)) brExchange.getSatoshisForBitcoin(BigDecimal(tmpAmount)).toLong() else brExchange.getSatoshisFromAmount(selectedIso, BigDecimal(tmpAmount)).toLong()
+        val balanceForISO = brExchange.getAmountFromSatoshis(iso, BigDecimal(curBalance))
         Timber.d("updateText: balanceForISO: %s", balanceForISO)
 
         //formattedBalance
-        val formattedBalance = BRCurrency.getFormattedCurrencyString(activity, iso, balanceForISO)
+        val formattedBalance = brCurrency.getFormattedCurrencyString(iso, balanceForISO)
         //Balance depending on ISO
         var fee: Long
         if (satoshis == 0L) {
@@ -522,10 +528,10 @@ class FragmentSend : Fragment() {
                 fee = BRWalletManager.getInstance().feeForTransaction(addressEdit.text.toString(), satoshis).toLong()
             }
         }
-        val feeForISO = BRExchange.getAmountFromSatoshis(activity, iso, BigDecimal(if (curBalance == 0L) 0 else fee))
+        val feeForISO = brExchange.getAmountFromSatoshis(iso, BigDecimal(if (curBalance == 0L) 0 else fee))
         Timber.d("updateText: feeForISO: %s", feeForISO)
         //formattedBalance
-        val aproxFee = BRCurrency.getFormattedCurrencyString(activity, iso, feeForISO)
+        val aproxFee = brCurrency.getFormattedCurrencyString(iso, feeForISO)
         Timber.d("updateText: aproxFee: %s", aproxFee)
         if (BigDecimal(if (tmpAmount.isEmpty() || tmpAmount.equals(".", ignoreCase = true)) "0" else tmpAmount).toDouble() > balanceForISO.toDouble()) {
             balanceText.setTextColor(context!!.getColor(R.color.warning_color))
@@ -558,7 +564,7 @@ class FragmentSend : Fragment() {
         if (obj.amount != null) {
             val iso = selectedIso
             val satoshiAmount = BigDecimal(obj.amount).multiply(BigDecimal(100000000))
-            amountBuilder = StringBuilder(BRExchange.getAmountFromSatoshis(activity, iso, satoshiAmount).toPlainString())
+            amountBuilder = StringBuilder(brExchange.getAmountFromSatoshis(iso, satoshiAmount).toPlainString())
             updateText()
         }
     }

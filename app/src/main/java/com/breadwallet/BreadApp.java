@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.breadwallet.di.component.AppComponent;
 import com.breadwallet.di.component.DaggerAppComponent;
+import com.breadwallet.di.module.AppModule;
 import com.breadwallet.presenter.activities.util.BRActivity;
 import com.breadwallet.tools.listeners.SyncReceiver;
 import com.breadwallet.tools.manager.AnalyticsManager;
@@ -59,6 +61,8 @@ public class BreadApp extends Application {
     private static Timer isBackgroundChecker;
     public static AtomicInteger activityCounter = new AtomicInteger();
     public static long backgroundedTime;
+    public AppComponent appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
+
 
     private static Activity currentActivity;
 
@@ -66,7 +70,7 @@ public class BreadApp extends Application {
     public void onCreate() {
         super.onCreate();
 
-        DaggerAppComponent.builder().build().inject(this);
+        appComponent.inject(this);
         FirebaseApp.initializeApp(this);
 
         boolean enableCrashlytics = true;

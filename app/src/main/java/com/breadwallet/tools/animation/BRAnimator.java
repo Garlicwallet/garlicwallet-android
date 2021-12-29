@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -31,7 +30,6 @@ import com.breadwallet.presenter.activities.LoginActivity;
 import com.breadwallet.presenter.activities.camera.ScanQRActivity;
 import com.breadwallet.presenter.customviews.BRDialogView;
 import com.breadwallet.presenter.entities.TxItem;
-import com.breadwallet.presenter.fragments.DynamicDonationFragment;
 import com.breadwallet.presenter.fragments.FragmentBuy;
 import com.breadwallet.presenter.fragments.FragmentGreetings;
 import com.breadwallet.presenter.fragments.FragmentMenu;
@@ -303,14 +301,6 @@ public class BRAnimator {
                 .setCustomAnimations(0, 0, 0, R.animator.plain_300)
                 .add(android.R.id.content, FragmentBuy.newInstance(currency), FragmentBuy.class.getName())
                 .addToBackStack(FragmentBuy.class.getName())
-                .commit();
-    }
-
-    public static void showDynamicDonationFragment(@NonNull FragmentActivity app) {
-        app.getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(0, 0, 0, R.animator.plain_300)
-                .add(android.R.id.content, new DynamicDonationFragment(), DynamicDonationFragment.class.getName())
-                .addToBackStack(DynamicDonationFragment.class.getName())
                 .commit();
     }
 

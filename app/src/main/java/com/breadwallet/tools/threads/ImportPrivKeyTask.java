@@ -25,6 +25,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
 
+import javax.inject.Inject;
+
 import timber.log.Timber;
 
 /**
@@ -58,10 +60,14 @@ public class ImportPrivKeyTask extends AsyncTask<String, String, String> {
     private Activity app;
     private String key;
     private ImportPrivKeyEntity importPrivKeyEntity;
+    @Inject BRExchange brExchange;
+    @Inject BRCurrency brCurrency;
 
     public ImportPrivKeyTask(Activity activity) {
         app = activity;
         UNSPENT_URL = BuildConfig.LITECOIN_TESTNET ? "https://testnet.litecore.io/api/addrs/" : "https://insight.litecore.io/api/addrs/";
+        BreadApp brApp = (BreadApp) activity.getApplicationContext();
+        brApp.appComponent.inject(this);
     }
 
     @Override
@@ -97,10 +103,10 @@ public class ImportPrivKeyTask extends AsyncTask<String, String, String> {
 
 //        String iso = BRSharedPrefs.getIso(app);
 
-        String sentBits = BRCurrency.getFormattedCurrencyString(app, "GRLC", BRExchange.getAmountFromSatoshis(app, "GRLC", new BigDecimal(importPrivKeyEntity.getAmount())));
+        String sentBits = brCurrency.getFormattedCurrencyString("GRLC", brExchange.getAmountFromSatoshis("GRLC", new BigDecimal(importPrivKeyEntity.getAmount())));
 //        String sentExchange = BRCurrency.getFormattedCurrencyString(app, iso, BRExchange.getAmountFromSatoshis(app, iso, new BigDecimal(importPrivKeyEntity.getAmount())));
 
-        String feeBits = BRCurrency.getFormattedCurrencyString(app, "GRLC", BRExchange.getAmountFromSatoshis(app, "GRLC", new BigDecimal(importPrivKeyEntity.getFee())));
+        String feeBits = brCurrency.getFormattedCurrencyString("GRLC", brExchange.getAmountFromSatoshis("GRLC", new BigDecimal(importPrivKeyEntity.getFee())));
 //        String feeExchange = BRCurrency.getFormattedCurrencyString(app, iso, BRExchange.getAmountFromSatoshis(app, iso, new BigDecimal(importPrivKeyEntity.getFee())));
 
         if (app == null || importPrivKeyEntity == null) return;

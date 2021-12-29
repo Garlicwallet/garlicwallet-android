@@ -3,6 +3,7 @@ package com.breadwallet.tools.security;
 import android.app.Activity;
 import android.content.Context;
 
+import com.breadwallet.BreadApp;
 import com.breadwallet.R;
 import com.breadwallet.presenter.customviews.BRDialogView;
 import com.breadwallet.presenter.entities.PaymentItem;
@@ -20,6 +21,8 @@ import com.breadwallet.wallet.BRWalletManager;
 
 import java.math.BigDecimal;
 import java.util.Locale;
+
+import javax.inject.Inject;
 
 import timber.log.Timber;
 
@@ -52,8 +55,12 @@ public class BRSender {
     private final static long FEE_EXPIRATION_MILLIS = 72 * 60 * 60 * 1000L;
     private boolean timedOut;
     private boolean sending;
+    @Inject BRExchange brExchange;
+    @Inject BRCurrency brCurrency;
 
     private BRSender() {
+        BreadApp brApp = (BreadApp) BreadApp.getBreadContext().getApplicationContext();
+        brApp.appComponent.inject(this);
     }
 
     public static BRSender getInstance() {
@@ -359,13 +366,13 @@ public class BRSender {
             feeForTx += (BRWalletManager.getInstance().getBalance(ctx) - request.amount) % 100;
         }
         final long total = request.amount + feeForTx;
-        String formattedAmountBTC = BRCurrency.getFormattedCurrencyString(ctx, "GRLC", BRExchange.getBitcoinForSatoshis(ctx, new BigDecimal(request.amount)));
-        String formattedFeeBTC = BRCurrency.getFormattedCurrencyString(ctx, "GRLC", BRExchange.getBitcoinForSatoshis(ctx, new BigDecimal(feeForTx)));
-        String formattedTotalBTC = BRCurrency.getFormattedCurrencyString(ctx, "GRLC", BRExchange.getBitcoinForSatoshis(ctx, new BigDecimal(total)));
+        String formattedAmountBTC = brCurrency.getFormattedCurrencyString("GRLC", brExchange.getBitcoinForSatoshis(new BigDecimal(request.amount)));
+        String formattedFeeBTC = brCurrency.getFormattedCurrencyString("GRLC", brExchange.getBitcoinForSatoshis(new BigDecimal(feeForTx)));
+        String formattedTotalBTC = brCurrency.getFormattedCurrencyString("GRLC", brExchange.getBitcoinForSatoshis(new BigDecimal(total)));
 
-        String formattedAmount = BRCurrency.getFormattedCurrencyString(ctx, iso, BRExchange.getAmountFromSatoshis(ctx, iso, new BigDecimal(request.amount)));
-        String formattedFee = BRCurrency.getFormattedCurrencyString(ctx, iso, BRExchange.getAmountFromSatoshis(ctx, iso, new BigDecimal(feeForTx)));
-        String formattedTotal = BRCurrency.getFormattedCurrencyString(ctx, iso, BRExchange.getAmountFromSatoshis(ctx, iso, new BigDecimal(total)));
+        String formattedAmount = brCurrency.getFormattedCurrencyString( iso, brExchange.getAmountFromSatoshis(iso, new BigDecimal(request.amount)));
+        String formattedFee = brCurrency.getFormattedCurrencyString(iso, brExchange.getAmountFromSatoshis(iso, new BigDecimal(feeForTx)));
+        String formattedTotal = brCurrency.getFormattedCurrencyString( iso, brExchange.getAmountFromSatoshis(iso, new BigDecimal(total)));
 
         //formatted text
         return receiver + "\n\n"

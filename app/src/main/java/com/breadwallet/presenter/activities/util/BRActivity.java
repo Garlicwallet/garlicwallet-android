@@ -2,6 +2,7 @@ package com.breadwallet.presenter.activities.util;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.fragment.app.FragmentActivity;
@@ -22,9 +23,13 @@ import com.breadwallet.tools.security.BitcoinUrlHandler;
 import com.breadwallet.tools.security.PostAuth;
 import com.breadwallet.tools.threads.BRExecutor;
 import com.breadwallet.tools.util.BRConstants;
+import com.breadwallet.tools.util.BRCurrency;
+import com.breadwallet.tools.util.BRExchange;
 import com.breadwallet.wallet.BRWalletManager;
 import com.platform.HTTPServer;
 import com.platform.tools.BRBitId;
+
+import javax.inject.Inject;
 
 import timber.log.Timber;
 
@@ -54,8 +59,17 @@ import timber.log.Timber;
  */
 public class BRActivity extends FragmentActivity {
 
+    public @Inject BRExchange brExchange;
+    public @Inject BRCurrency brCurrency;
+
     static {
         System.loadLibrary(BRConstants.NATIVE_LIB_NAME);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        ((BreadApp) getApplicationContext()).appComponent.inject(this);
+        super.onCreate(savedInstanceState);
     }
 
     @Override

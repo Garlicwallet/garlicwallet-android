@@ -116,9 +116,9 @@ public class DisplayCurrencyActivity extends BRActivity {
         String iso = BRSharedPrefs.getIso(this);
         CurrencyEntity entity = CurrencyDataSource.getInstance(this).getCurrencyByIso(iso);
         if (entity != null) {
-            String finalExchangeRate = BRCurrency.getFormattedCurrencyString(DisplayCurrencyActivity.this, BRSharedPrefs.getIso(this), entity.rate);
+            String finalExchangeRate = brCurrency.getFormattedCurrencyString( BRSharedPrefs.getIso(this), entity.rate);
             boolean bits = BRSharedPrefs.getCurrencyUnit(this) == BRConstants.CURRENT_UNIT_LITES;
-            exchangeText.setText(BRCurrency.getFormattedCurrencyString(this, "GRLC", new BigDecimal(bits ? 1000 : 1)) + " = " + finalExchangeRate);
+            exchangeText.setText(brCurrency.getFormattedCurrencyString("GRLC", new BigDecimal(bits ? 1000 : 1)) + " = " + finalExchangeRate);
         }
         adapter.notifyDataSetChanged();
     }

@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.breadwallet.BreadApp;
 import com.breadwallet.R;
 import com.breadwallet.presenter.entities.TxItem;
 import com.breadwallet.tools.animation.BRAnimator;
@@ -39,9 +40,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import timber.log.Timber;
+import javax.inject.Inject;
 
-import static com.platform.HTTPServer.URL_SUPPORT;
+import timber.log.Timber;
 
 /**
  * BreadWallet
@@ -69,6 +70,10 @@ import static com.platform.HTTPServer.URL_SUPPORT;
  */
 
 public class FragmentTransactionItem extends Fragment {
+    @Inject
+    BRExchange brExchange;
+    @Inject
+    BRCurrency brCurrency;
     public TextView mTitle;
     private TextView mDescriptionText;
     private TextView mSubHeader;
@@ -88,6 +93,7 @@ public class FragmentTransactionItem extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ((BreadApp) getActivity().getApplication()).appComponent.inject(this);
         final View rootView = inflater.inflate(R.layout.transaction_details_item, container, false);
         signalLayout = (LinearLayout) rootView.findViewById(R.id.signal_layout);
         mTitle = (TextView) rootView.findViewById(R.id.title);
@@ -149,15 +155,15 @@ public class FragmentTransactionItem extends Fragment {
         boolean sent = item.getReceived() - item.getSent() < 0;
 
         //calculated and formatted amount for iso
-        String amountWithFee = BRCurrency.getFormattedCurrencyString(getActivity(), iso, BRExchange.getAmountFromSatoshis(getActivity(), iso, txAmount));
-        String amount = BRCurrency.getFormattedCurrencyString(getActivity(), iso, BRExchange.getAmountFromSatoshis(getActivity(), iso, item.getFee() == -1 ? txAmount : txAmount.subtract(new BigDecimal(item.getFee()))));
+        String amountWithFee = brCurrency.getFormattedCurrencyString(iso, brExchange.getAmountFromSatoshis(iso, txAmount));
+        String amount = brCurrency.getFormattedCurrencyString(iso, brExchange.getAmountFromSatoshis(iso, item.getFee() == -1 ? txAmount : txAmount.subtract(new BigDecimal(item.getFee()))));
         //calculated and formatted fee for iso
-        String fee = BRCurrency.getFormattedCurrencyString(getActivity(), iso, BRExchange.getAmountFromSatoshis(getActivity(), iso, new BigDecimal(item.getFee())));
+        String fee = brCurrency.getFormattedCurrencyString(iso, brExchange.getAmountFromSatoshis(iso, new BigDecimal(item.getFee())));
         //description (Sent $24.32 ....)
         Spannable descriptionString = sent ? new SpannableString(String.format(getString(R.string.TransactionDetails_sent), amountWithFee)) : new SpannableString(String.format(getString(R.string.TransactionDetails_received), amount));
 
-        String startingBalance = BRCurrency.getFormattedCurrencyString(getActivity(), iso, BRExchange.getAmountFromSatoshis(getActivity(), iso, new BigDecimal(sent ? item.getBalanceAfterTx() + txAmount.longValue() : item.getBalanceAfterTx() - txAmount.longValue())));
-        String endingBalance = BRCurrency.getFormattedCurrencyString(getActivity(), iso, BRExchange.getAmountFromSatoshis(getActivity(), iso, new BigDecimal(item.getBalanceAfterTx())));
+        String startingBalance = brCurrency.getFormattedCurrencyString(iso, brExchange.getAmountFromSatoshis(iso, new BigDecimal(sent ? item.getBalanceAfterTx() + txAmount.longValue() : item.getBalanceAfterTx() - txAmount.longValue())));
+        String endingBalance = brCurrency.getFormattedCurrencyString(iso, brExchange.getAmountFromSatoshis(iso, new BigDecimal(item.getBalanceAfterTx())));
         String commentString = item.metaData == null || item.metaData.comment == null ? "" : item.metaData.comment;
         String sb = String.format(getString(R.string.Transaction_starting), startingBalance);
         String eb = String.format(getString(R.string.Transaction_ending), endingBalance);

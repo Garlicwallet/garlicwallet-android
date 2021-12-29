@@ -12,6 +12,8 @@ import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 
+import javax.inject.Inject;
+
 import static com.breadwallet.tools.util.BRConstants.CURRENT_UNIT_PHOTONS;
 
 /**
@@ -42,8 +44,17 @@ import static com.breadwallet.tools.util.BRConstants.CURRENT_UNIT_PHOTONS;
 public class BRCurrency {
     public static final String TAG = BRCurrency.class.getName();
 
+    private final Context app;
+    private final BRExchange brExchange;
+
+    @Inject
+    public BRCurrency(Context app, BRExchange brExchange) {
+        this.app = app;
+        this.brExchange = brExchange;
+    }
+
     // amount is in currency or BTC (bits, mBTC or BTC)
-    public static String getFormattedCurrencyString(Context app, String isoCurrencyCode, BigDecimal amount) {
+    public String getFormattedCurrencyString(String isoCurrencyCode, BigDecimal amount) {
         // This formats currency values as the user expects to read them (default locale).
         DecimalFormat  currencyFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance(Locale.getDefault());
         // This specifies the actual currency that the value is in, and provide
@@ -53,7 +64,7 @@ public class BRCurrency {
         String symbol;
         decimalFormatSymbols = currencyFormat.getDecimalFormatSymbols();
         if (Objects.equals(isoCurrencyCode, "GRLC")) {
-            symbol = BRExchange.getBitcoinSymbol(app);
+            symbol = brExchange.getBitcoinSymbol();
         } else {
             try {
                 currency = Currency.getInstance(isoCurrencyCode);
@@ -76,7 +87,7 @@ public class BRCurrency {
         return currencyFormat.format(amount);
     }
 
-    public static String getSymbolByIso(Context app, String iso) {
+    public String getSymbolByIso(String iso) {
         String symbol;
         if (Objects.equals(iso, "GRLC")) {
             String currencySymbolString = BRConstants.bitcoinLowercase;
@@ -108,7 +119,7 @@ public class BRCurrency {
     }
 
     //for now only use for BTC and Bits
-    public static String getCurrencyName(Context app, String iso) {
+    public String getCurrencyName(String iso) {
         if (Objects.equals(iso, "GRLC")) {
             if (app != null) {
                 int unit = BRSharedPrefs.getCurrencyUnit(app);
@@ -125,7 +136,7 @@ public class BRCurrency {
         return iso;
     }
 
-    public static int getMaxDecimalPlaces(String iso) {
+    public int getMaxDecimalPlaces(String iso) {
         if (Utils.isNullOrEmpty(iso)) return 8;
 
         if (iso.equalsIgnoreCase("GRLC")) {

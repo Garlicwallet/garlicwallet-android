@@ -430,7 +430,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 CurrencyEntity selectedCurrency = CurrencyDataSource.getInstance(BreadActivity.this).getCurrencyByIso(iso);
                 String formattedCurrency = null;
                 if (selectedCurrency != null) {
-                    formattedCurrency = BRCurrency.getFormattedCurrencyString(BreadActivity.this, iso, selectedCurrency.rate);
+                    formattedCurrency = brCurrency.getFormattedCurrencyString( iso, selectedCurrency.rate);
                 } else {
                     Timber.w("The currency related to %s is NULL", iso);
                 }
@@ -441,12 +441,12 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                         : BRSharedPrefs.getCachedBalance(BreadActivity.this));
 
                 //amount in GRLC units
-                BigDecimal btcAmount = BRExchange.getBitcoinForSatoshis(BreadActivity.this, amount);
-                final String formattedBTCAmount = BRCurrency.getFormattedCurrencyString(BreadActivity.this, "GRLC", btcAmount);
+                BigDecimal btcAmount = brExchange.getBitcoinForSatoshis(amount);
+                final String formattedBTCAmount = brCurrency.getFormattedCurrencyString("GRLC", btcAmount);
 
                 //amount in currency units
-                final BigDecimal curAmount = BRExchange.getAmountFromSatoshis(BreadActivity.this, iso, amount);
-                final String formattedCurAmount = BRCurrency.getFormattedCurrencyString(BreadActivity.this, iso, curAmount);
+                final BigDecimal curAmount = brExchange.getAmountFromSatoshis(iso, amount);
+                final String formattedCurAmount = brCurrency.getFormattedCurrencyString(iso, curAmount);
                 runOnUiThread(() -> {
                     primaryPrice.setText(formattedBTCAmount);
                     secondaryPrice.setText(String.format("%s", formattedCurAmount));

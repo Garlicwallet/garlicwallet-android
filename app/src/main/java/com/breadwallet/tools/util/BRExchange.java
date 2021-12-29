@@ -9,6 +9,8 @@ import com.breadwallet.wallet.BRWalletManager;
 
 import java.math.BigDecimal;
 
+import javax.inject.Inject;
+
 import static com.breadwallet.tools.util.BRConstants.CURRENT_UNIT_PHOTONS;
 import static com.breadwallet.tools.util.BRConstants.ROUNDING_MODE;
 
@@ -37,18 +39,23 @@ import static com.breadwallet.tools.util.BRConstants.ROUNDING_MODE;
  * THE SOFTWARE.
  */
 public class BRExchange {
+    private final Context app;
 
-    public static BigDecimal getMaxAmount(Context context, String iso) {
+    @Inject public BRExchange(Context app) {
+        this.app = app;
+    }
+
+    public BigDecimal getMaxAmount(String currencyISOCode) {
         final long MAX_BTC = 69000000;
-        if (iso.equalsIgnoreCase("GRLC"))
-            return getBitcoinForSatoshis(context, new BigDecimal(MAX_BTC * 100000000));
-        CurrencyEntity ent = CurrencyDataSource.getInstance(context).getCurrencyByIso(iso);
+        if (currencyISOCode.equalsIgnoreCase("GRLC"))
+            return getBitcoinForSatoshis(new BigDecimal(MAX_BTC * 100000000));
+        CurrencyEntity ent = CurrencyDataSource.getInstance(app).getCurrencyByIso(currencyISOCode);
         if (ent == null) return new BigDecimal(Integer.MAX_VALUE);
         return ent.rate.multiply(new BigDecimal(MAX_BTC));
     }
 
     // amount in satoshis
-    public static BigDecimal getBitcoinForSatoshis(Context app, BigDecimal amount) {
+    public BigDecimal getBitcoinForSatoshis(BigDecimal amount) {
         BigDecimal result = new BigDecimal(0);
         int unit = BRSharedPrefs.getCurrencyUnit(app);
         switch (unit) {
@@ -65,7 +72,7 @@ public class BRExchange {
         return result;
     }
 
-    public static BigDecimal getSatoshisForBitcoin(Context app, BigDecimal amount) {
+    public BigDecimal getSatoshisForBitcoin(BigDecimal amount) {
         BigDecimal result = new BigDecimal(0);
         int unit = BRSharedPrefs.getCurrencyUnit(app);
         switch (unit) {
@@ -82,7 +89,7 @@ public class BRExchange {
         return result;
     }
 
-    public static String getBitcoinSymbol(Context app) {
+    public String getBitcoinSymbol() {
         String currencySymbolString = BRConstants.bitcoinLowercase;
         if (app != null) {
             int unit = BRSharedPrefs.getCurrencyUnit(app);
@@ -102,10 +109,10 @@ public class BRExchange {
     }
 
     //get an iso amount from  satoshis
-    public static BigDecimal getAmountFromSatoshis(Context app, String iso, BigDecimal amount) {
+    public BigDecimal getAmountFromSatoshis(String iso, BigDecimal amount) {
         BigDecimal result;
         if (iso.equalsIgnoreCase("GRLC")) {
-            result = getBitcoinForSatoshis(app, amount);
+            result = getBitcoinForSatoshis (amount);
         } else {
             //multiply by 100 because core function localAmount accepts the smallest amount e.g. cents
             CurrencyEntity ent = CurrencyDataSource.getInstance(app).getCurrencyByIso(iso);
@@ -119,10 +126,10 @@ public class BRExchange {
 
 
     //get satoshis from an iso amount
-    public static BigDecimal getSatoshisFromAmount(Context app, String iso, BigDecimal amount) {
+    public  BigDecimal getSatoshisFromAmount(String iso, BigDecimal amount) {
         BigDecimal result;
         if (iso.equalsIgnoreCase("GRLC")) {
-            result = BRExchange.getSatoshisForBitcoin(app, amount);
+            result = getSatoshisForBitcoin(amount);
         } else {
             //multiply by 100 because core function localAmount accepts the smallest amount e.g. cents
             CurrencyEntity ent = CurrencyDataSource.getInstance(app).getCurrencyByIso(iso);

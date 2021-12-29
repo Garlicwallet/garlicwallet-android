@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.breadwallet.BreadApp;
 import com.breadwallet.R;
 import com.breadwallet.presenter.customviews.BRButton;
 import com.breadwallet.presenter.customviews.BRKeyboard;
@@ -36,6 +37,8 @@ import com.breadwallet.tools.util.Utils;
 import com.breadwallet.wallet.BRWalletManager;
 
 import java.math.BigDecimal;
+
+import javax.inject.Inject;
 
 import timber.log.Timber;
 
@@ -68,6 +71,10 @@ import static com.platform.HTTPServer.URL_SUPPORT;
  */
 
 public class FragmentRequestAmount extends Fragment {
+    @Inject
+    BRExchange brExchange;
+    @Inject
+    BRCurrency brCurrency;
     private BRKeyboard keyboard;
     private StringBuilder amountBuilder;
     private TextView isoText;
@@ -96,7 +103,7 @@ public class FragmentRequestAmount extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        ((BreadApp) getActivity().getApplication()).appComponent.inject(this);
         View rootView = inflater.inflate(R.layout.fragment_receive, container, false);
         backgroundLayout = (LinearLayout) rootView.findViewById(R.id.background_layout);
         signalLayout = (LinearLayout) rootView.findViewById(R.id.signal_layout);
@@ -200,7 +207,7 @@ public class FragmentRequestAmount extends Fragment {
                 String iso = selectedIso;
                 String strAmount = amountEdit.getText().toString();
                 BigDecimal bigAmount = new BigDecimal((Utils.isNullOrEmpty(strAmount) || strAmount.equalsIgnoreCase(".")) ? "0" : strAmount);
-                long amount = BRExchange.getSatoshisFromAmount(getActivity(), iso, bigAmount).longValue();
+                long amount = brExchange.getSatoshisFromAmount(iso, bigAmount).longValue();
                 String bitcoinUri = Utils.createBitcoinUrl(receiveAddress, amount, null, null, null);
                 QRUtils.share("mailto:", getActivity(), bitcoinUri);
 
@@ -356,10 +363,10 @@ public class FragmentRequestAmount extends Fragment {
         String currAmount = amountBuilder.toString();
         String iso = selectedIso;
         if (new BigDecimal(currAmount.concat(String.valueOf(dig))).doubleValue()
-                <= BRExchange.getMaxAmount(getActivity(), iso).doubleValue()) {
+                <= brExchange.getMaxAmount(iso).doubleValue()) {
             //do not insert 0 if the balance is 0 now
             if (currAmount.equalsIgnoreCase("0")) amountBuilder = new StringBuilder("");
-            if ((currAmount.contains(".") && (currAmount.length() - currAmount.indexOf(".") > BRCurrency.getMaxDecimalPlaces(iso))))
+            if ((currAmount.contains(".") && (currAmount.length() - currAmount.indexOf(".") > brCurrency.getMaxDecimalPlaces(iso))))
                 return;
             amountBuilder.append(dig);
             updateText();
@@ -368,7 +375,7 @@ public class FragmentRequestAmount extends Fragment {
 
     private void handleSeparatorClick() {
         String currAmount = amountBuilder.toString();
-        if (currAmount.contains(".") || BRCurrency.getMaxDecimalPlaces(selectedIso) == 0)
+        if (currAmount.contains(".") || brCurrency.getMaxDecimalPlaces(selectedIso) == 0)
             return;
         amountBuilder.append(".");
         updateText();
@@ -386,8 +393,8 @@ public class FragmentRequestAmount extends Fragment {
         if (getActivity() == null) return;
         String tmpAmount = amountBuilder.toString();
         amountEdit.setText(tmpAmount);
-        isoText.setText(BRCurrency.getSymbolByIso(getActivity(), selectedIso));
-        isoButton.setText(String.format("%s(%s)", BRCurrency.getCurrencyName(getActivity(), selectedIso), BRCurrency.getSymbolByIso(getActivity(), selectedIso)));
+        isoText.setText(brCurrency.getSymbolByIso(selectedIso));
+        isoButton.setText(String.format("%s(%s)", brCurrency.getCurrencyName(selectedIso), brCurrency.getSymbolByIso(selectedIso)));
     }
 
     private void showKeyboard(boolean b) {
@@ -415,7 +422,7 @@ public class FragmentRequestAmount extends Fragment {
         String amountArg = "";
         if (strAmount != null && !strAmount.isEmpty()) {
             BigDecimal bigAmount = new BigDecimal((Utils.isNullOrEmpty(strAmount) || strAmount.equalsIgnoreCase(".")) ? "0" : strAmount);
-            long amount = BRExchange.getSatoshisFromAmount(getActivity(), iso, bigAmount).longValue();
+            long amount = brExchange.getSatoshisFromAmount(iso, bigAmount).longValue();
             String am = new BigDecimal(amount).divide(new BigDecimal(100000000), 8, BRConstants.ROUNDING_MODE).toPlainString();
             amountArg = "?amount=" + am;
         }
